@@ -6,11 +6,29 @@
 
 \begin{document}
 \maketitle
-\section{Covariance}
-$$\sigma\left(x,y\right) = \operatorname{E}{\big[(x - \operatorname{E}[x])(y - \operatorname{E}[y])\big]} $$
 
+These formul\ae\ are for the bivariate (rather than more-than-two) populations (rather than samples).
+
+\section{Covariance}
+Conceptually, it's this.
+$$\sigma_{xy} = \operatorname{E}{\big[(x - \operatorname{E}[x])(y - \operatorname{E}[y])\big]} $$
+
+More precisely, it could be this.
+$$\sigma_{xy} = \frac{1}{N-1}\sum_{i=1}^{N}\left( x_{i}-\bar{x} \right) \left( y_{i}-\bar{y} \right) $$
+
+As matrix arithmetic, it's this.
+
+In R, it's this.
+
+\begin{verbatim}
+cov(x,y)
+\end{verbatim}
 
 \section{Variance}
+Variance is the covariance of something with itself.
+
+$$ \sigma_{x}^2 = \sigma_{xx} = \operatorname{E}{\big[\left(x - \operatorname{E}[x]\right)^2\big]} $$
+
 \section{Correlation}
 \section{Ordinary least-squares regression}
 
