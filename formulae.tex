@@ -1,6 +1,7 @@
 \documentclass{article}
 \usepackage{amsmath}
 \usepackage{hyperref}
+\setlength\parindent{0pt}
 \title{Formul\ae\ for concepts that Tom is drawing}
 \author{Thomas Levine}
 
@@ -11,10 +12,10 @@ These formul\ae\ are for the bivariate (rather than more-than-two) populations (
 
 \section{Covariance}
 Conceptually, it's this.
-$$\sigma_{xy} = \operatorname{E}{\big[\left(x - \operatorname{E}[x])(y - \operatorname{E}[y]\right)\big]} $$
+$$ \sigma_{xy} = \operatorname{E}{\big[\left(x - \operatorname{E}[x])(y - \operatorname{E}[y]\right)\big]} $$
 
 More precisely, it could be this.
-$$\sigma_{xy} = \frac{1}{N-1}\sum_{i=1}^{N}\left( x_{i}-\bar{x} \right) \left( y_{i}-\bar{y} \right) $$
+$$ \sigma_{xy} = \frac{1}{N-1}\sum_{i=1}^{N}\left( x_{i}-\bar{x} \right) \left( y_{i}-\bar{y} \right) $$
 
 As matrix arithmetic, it's this.
 
@@ -26,8 +27,10 @@ cov(x,y)
 
 \section{Variance}
 Variance is the covariance of something with itself.
-
 $$ \sigma_{x}^2 = \sigma_{xx} = \operatorname{E}{\big[\left(x - \operatorname{E}[x]\right)^2\big]} $$
+
+More precisely, like the covariance, it could be this.
+$$ \sigma_{x}^2 = \frac{1}{N-1}\sum_{i=1}^{N}\left( x_{i}-\bar{x} \right) \left( x_{i}-\bar{x} \right) $$
 
 \section{Correlation}
 \section{Ordinary least-squares regression}
