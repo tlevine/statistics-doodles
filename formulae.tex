@@ -2,6 +2,7 @@
 \usepackage{amsmath}
 \usepackage{hyperref}
 \setlength\parindent{0pt}
+\setlength\parskip{0.5em}
 \title{Formul\ae\ for concepts that Tom is drawing}
 \author{Thomas Levine}
 
@@ -15,14 +16,30 @@ Conceptually, it's this.
 $$ \sigma_{xy} = \operatorname{E}{\big[\left(x - \operatorname{E}[x])(y - \operatorname{E}[y]\right)\big]} $$
 
 More precisely, it could be this.
-$$ \sigma_{xy} = \frac{1}{N-1}\sum_{i=1}^{N}\left( x_{i}-\bar{x} \right) \left( y_{i}-\bar{y} \right) $$
+$$ \sigma_{xy} = \frac{1}{N}\sum_{i=1}^{N}\left( x_{i}-\bar{x} \right)^2 $$
 
-As matrix arithmetic, it's this.
+As matrix arithmetic, it's written in a way that works for more than two variables.
+I'm not going to explain it, but here it is. ($\Sigma$ is the covariance matrix.)
+$$ \Sigma=\mathrm{E}
+\left[
+ \left(
+  \textbf{X} - \mathrm{E}[\textbf{X}]
+   \right)
+  \left(
+   \textbf{X} - \mathrm{E}[\textbf{X}]
+    \right)^{\rm T}
+    \right]
+$$
 
 In R, it's this.
 
 \begin{verbatim}
+# Two variables
 cov(x,y)
+
+# More variables
+var(iris[-5])
+cov(iris[-5])
 \end{verbatim}
 
 \section{Variance}
@@ -30,15 +47,71 @@ Variance is the covariance of something with itself.
 $$ \sigma_{x}^2 = \sigma_{xx} = \operatorname{E}{\big[\left(x - \operatorname{E}[x]\right)^2\big]} $$
 
 More precisely, like the covariance, it could be this.
-$$ \sigma_{x}^2 = \frac{1}{N-1}\sum_{i=1}^{N}\left( x_{i}-\bar{x} \right) \left( x_{i}-\bar{x} \right) $$
+$$ \sigma_{x}^2 = \frac{1}{N}\sum_{i=1}^{N}\left( x_{i}-\bar{x} \right) \left( x_{i}-\bar{x} \right) $$
+
+As matrix arithmetic, it's the diagonal of the covariance. Again, I'm not really going to explain it.
+$$ diag\left(\Sigma\right) $$
+
+In R, all of these would work.
+\begin{verbatim}
+# One variable
+var(x)
+cov(x,x)
+
+# More variables
+lapply(iris[-5],var)
+diag(cov(iris[-5]))
+\end{verbatim}
 
 \section{Correlation}
+Correlation (specifically, the Pearson product-moment correlation coefficient---there are others)
+measures how much the variables linearlly depend on each other.
+
+For perfectly linear variables that move together, $\rho_{xy}$ will be $1$.
+For perfectly linear variables that move oppositely, $\rho_{xy}$ will be $-1$.
+
+$\rho_{xy}$ is just the covariance ($\sigma_{xy}$) divided by
+the product of the standard deviations ($\sigma_x\sigma_y$).
+
+$$ \rho_{xy} = \frac{\sigma_{xy}}{\sigma_x\sigma_y} $$
+
+We can also factor out the $N$ term and write it as the sum of the rectangles divided by
+the rectangle formed by the square roots of the sums of the squares.
+$$ \beta = \frac
+{ \sum_{i=1}^{N}\left( x_{i}-\bar{x} \right) \left( y_{i}-\bar{y} \right) }
+{
+  \sqrt{\sum_{i=1}^{N}\left( x_{i}-\bar{x} \right)^2}
+  \sqrt{\sum_{i=1}^{N}\left( y_{i}-\bar{y} \right)^2}
+}
+$$
+
+If you need to be convinced that $\sigma_{xy}$ is no greater than $\sigma_x\sigma_y$,
+recall that the covariance includes negative rectangles and the variance does not;
+
+
+
 \section{Ordinary least-squares regression}
+Simple regression is a best fit line between two variables; we are looking for $\alpha$ and $\beta$.
+$$ \hat{y}_i = \alpha + \beta x_i$$
+
+$\beta$ is just the covariance divided by the variance.
+$$ \beta = \sigma{xy}/\sigma_x^2 $$
+
+We can also factor out the $N$ term and write it as the sum of the rectangles divided by the sum of the squares.
+$$ \beta = \frac
+{\frac{1}{N}\sum_{i=1}^{N}\left( x_{i}-\bar{x} \right) \left( y_{i}-\bar{y} \right)}
+{\frac{1}{N}\sum_{i=1}^{N}\left( x_{i}-\bar{x} \right)^2}
+$$
+$$ \beta = \frac
+{\sum_{i=1}^{N}\left( x_{i}-\bar{x} \right) \left( y_{i}-\bar{y} \right)}
+{\sum_{i=1}^{N}\left( x_{i}-\bar{x} \right)^2}
+$$
 
 \section{Credits}
 Some formul\ae\ were lifted from these pages.
 \begin{itemize}
 \item \url{http://en.wikipedia.org/w/index.php?title=Covariance&action=edit}
-\item \url{}
+\item \url{http://en.wikipedia.org/w/index.php?title=Pearson_product-moment_correlation_coefficient&action=edit&section=3}
+\item \url{http://en.wikipedia.org/w/index.php?title=Ordinary_least_squares&action=edit}
 \end{itemize}
 \end{document}
