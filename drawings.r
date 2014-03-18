@@ -18,7 +18,6 @@ interjection <- function(main) {
   text(0.5, 0.5, cex = 2, label = main, font = 2)
 }
 
-
 slides <- function() {
 # Introduction
 interjection('What is a statistic?')
@@ -158,14 +157,37 @@ interjection('Covariance has units!\n\n(x-unit times y-unit)')
 interjection('Which relationship is stronger\n(more linear)?')
 
 par(mfrow = 1:2)
-.cov <- round(cov(iris[c('Sepal.Length','Sepal.Width')])[1,2], 2)
+.cov <- round(cov(iris$Sepal.Length,iris$Sepal.Width), 2)
 irisplot(paste0('Irises (cov = ', .cov, ' cm^2)'))
-.cov <- round(cov(cars[c('speed','dist')])[1,2], 2)
+.cov <- round(cov(cars$speed,cars$dist), 2)
 baseplot(paste0('Cars (cov =', .cov, ' mph*ft)'), (speed ~ dist), cars)
 par(mfrow = c(1,1))
 
 interjection('Oh noes!')
-interjection('Let\'s divide\ncovariance by variance\nto standardize it.')
+interjection('Let\'s divide\ncovariance by the variances\nto standardize it.')
+
+a <- sd(iris$Sepal.Length)
+b <- sd(iris$Sepal.Width)
+ab <- max(a,b)
+
+corbase <- function() {
+  plot(c(-ab,ab),c(-ab,ab),main = '', type = 'n', axes = F, xlab = '', ylab = '')
+  rect(xright = 0, ybottom = 0, xleft = -a, ytop = a, col = 'grey', lwd = 0)
+  text(-a/2,a/2,'var(Sepal.Width)')
+  rect(xleft = 0, ytop = 0, xright = b, ybottom = -b, col = 'grey', lwd = 0)
+  text(b/2,-b/2,'var(Sepal.Length)')
+}
+
+corbase()
+rect(xleft = 0, ybottom = 0, xright = b, ytop = a, col = 'red', lwd = 0)
+text(b/2,a/2,'sd(Sepal.Width)*\nsd(Sepal.Length)')
+
+corbase()
+rect(xleft = 0, ybottom = 0, xright = b, ytop = a, col = 'red', lwd = 0)
+text(b/2,a/2,'sd(Sepal.Width)*\nsd(Sepal.Length)')
+text(-b/2,-a/2,'cov(
+
+
 }
 
 
