@@ -185,7 +185,7 @@ text(b/2,a/2,'sd(Sepal.Width)*\nsd(Sepal.Length)')
 corbase()
 rect(xleft = 0, ybottom = 0, xright = b, ytop = a, col = 'red', lwd = 0)
 text(b/2,a/2,'sd(Sepal.Width)*\nsd(Sepal.Length)')
-text(-b/2,-a/2,'cov(
+text(-a/2,-b/2,'cov(Sepal.Width,Sepal.Length)\ncannot be bigger than\nred rectangle.')
 
 
 }
