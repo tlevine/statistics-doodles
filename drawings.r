@@ -1,5 +1,6 @@
 attach(iris)
 attach(cars)
+attach(airquality)
 baseplot <- function(main, y, x) {
   plot(y ~ x, type = 'p', bty = 'n',
     main = main, pch = 21, bg = 'grey', col = NULL,
@@ -34,8 +35,7 @@ interjection('Measuring linear relationships')
 irisplot('Two iris variables that move together')
 
 rand <- data.frame(x = rnorm(100), y = rnorm(100))
-baseplot('Two air quality variables that move oppositely',
-  formula = Ozone ~ Wind, data = airquality) 
+baseplot('Two air quality variables that move oppositely', Ozone, Wind) 
 
 baseplot('Normal random noise', rand$y, rand$x)
 
@@ -45,10 +45,9 @@ interjection('We want a number\nthat describes\nwhether two variables\nmove toge
 irisplot('It should be high for these variables')
 
 rand <- data.frame(x = rnorm(100), y = rnorm(100))
-baseplot('It should be low for these variables',
-  formula = Ozone ~ Wind, data = airquality) 
+baseplot('It should be low for these variables', Ozone, Wind) 
 
-baseplot('It should be near zero for these variables', formula = y ~ x, data = rand)
+baseplot('It should be near zero for these variables', rand$y, rand$x)
 
 # Computing covariance
 interjection('Covariance')
@@ -206,7 +205,6 @@ rect(xleft = mean(Petal.Length),
      ytop = Petal.Length,
      col = rgb(0, 0, 1,.1),
      lwd = 0)
-
 
 }
 
