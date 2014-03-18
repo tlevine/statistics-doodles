@@ -92,5 +92,7 @@ plot(c(-1,1),c(-1,1),main = 'This blue sliver is the covariance.',
 rect(xleft = -.3, xright = -.3 + (.5/nrow(iris)), ybottom = -1, ytop = 1,
   col = 'blue', lwd = 0)
 
+interjection('(Review the previous slides quickly.)')
+
 #pdf('doodles.pdf', width = 11, height = 8.5)
 #dev.off()
