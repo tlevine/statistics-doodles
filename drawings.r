@@ -51,15 +51,21 @@ baseplot('The iris variables')
 
 meanplot('Find the means')
 
-baseplot('Draw rectangles')
-valence <- (iris$Petal.Length - mean(iris$Petal.Length)) *
-           (iris$Petal.Width - mean(iris$Petal.Width)) > 0
+meanplot('Draw a rectangle')
 rect(xleft = mean(iris$Petal.Width),
      ybottom = mean(iris$Petal.Length),
-     xright = iris$Petal.Width,
-     ytop = iris$Petal.Length,
-     col = rgb(valence, 1-valence, 0,.1),
-     lwd = 0)
+     xright = iris$Petal.Width[c(44,72)],
+     ytop = iris$Petal.Length[c(44,72)])
+
+#baseplot('Draw rectangles')
+#valence <- (iris$Petal.Length - mean(iris$Petal.Length)) *
+#           (iris$Petal.Width - mean(iris$Petal.Width)) > 0
+#rect(xleft = mean(iris$Petal.Width),
+#     ybottom = mean(iris$Petal.Length),
+#     xright = iris$Petal.Width,
+#     ytop = iris$Petal.Length,
+#     col = rgb(valence, 1-valence, 0,.1),
+#     lwd = 0)
 
 #pdf('doodles.pdf', width = 11, height = 8.5)
 #dev.off()
