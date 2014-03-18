@@ -67,5 +67,30 @@ rect(xleft = mean(iris$Petal.Width),
      col = rgb(1-valence, 0, valence,.1),
      lwd = 0)
 
+plot(c(-1,1),c(-1,1),main = 'Add the blues together. (This is at a different scale.)',
+  type = 'n', axes = F, xlab = '', ylab = '')
+rect(xleft = -1, ybottom = -1, xright = 1, ytop = 1, lwd = 0, col = 'blue')
+
+plot(c(-1,1),c(-1,1),main = 'Add the reds together.',
+  type = 'n', axes = F, xlab = '', ylab = '')
+rect(xleft = -1, ybottom = -1, xright = 1, ytop = 1, lwd = 0, col = 'blue')
+rect(xleft = .8, ybottom = -1, xright = 1, ytop = -.8, lwd = 0, col = 'red')
+
+plot(c(-1,1),c(-1,1),main = 'Subtract the reds.',
+  type = 'n', axes = F, xlab = '', ylab = '')
+rect(xleft = -1, ybottom = -1, xright = 1, ytop = 1, lwd = 0, col = 'blue')
+rect(xleft = .8, ybottom = -1, xright = 1, ytop = -.8, lwd = 0, col = 'white')
+
+plot(c(-1,1),c(-1,1),main = 'Divide into as many equal pieces as we have irises (n).',
+  type = 'n', axes = F, xlab = '', ylab = '')
+rect(xleft = -1, ybottom = -1, xright = 1, ytop = 1, lwd = 0, col = 'blue')
+rect(xleft = .8, ybottom = -1, xright = 1, ytop = -.8, lwd = 0, col = 'white')
+abline(v = 2 * (-.5 + ((1:nrow(iris))/nrow(iris))))
+
+plot(c(-1,1),c(-1,1),main = 'This blue sliver is the covariance.',
+  type = 'n', axes = F, xlab = '', ylab = '')
+rect(xleft = -.3, xright = -.3 + (.5/nrow(iris)), ybottom = -1, ytop = 1,
+  col = 'blue', lwd = 0)
+
 #pdf('doodles.pdf', width = 11, height = 8.5)
 #dev.off()
