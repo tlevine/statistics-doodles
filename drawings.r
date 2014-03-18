@@ -149,6 +149,9 @@ interjection('Let\'s review again.')
 
 interjection('')
 
+# Non-positive relationships
+interjection('(Add examples from air quality and random.)')
+
 # Correlation
 interjection('A problem with covariance')
 interjection('Covariance has units!\n\n(x-unit times y-unit)')
@@ -159,8 +162,10 @@ par(mfrow = 1:2)
 irisplot(paste0('Irises (cov = ', .cov, ' cm^2)'))
 .cov <- round(cov(cars[c('speed','dist')])[1,2], 2)
 baseplot(paste0('Cars (cov =', .cov, ' mph*ft)'), (speed ~ dist), cars)
-
 par(mfrow = c(1,1))
+
+interjection('Oh noes!')
+interjection('Let\'s divide\ncovariance by variance\nto standardize it.')
 }
 
 
