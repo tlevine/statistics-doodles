@@ -16,7 +16,7 @@ Conceptually, it's this.
 $$ \sigma_{xy} = \operatorname{E}{\big[\left(x - \operatorname{E}[x])(y - \operatorname{E}[y]\right)\big]} $$
 
 More precisely, it could be this.
-$$ \sigma_{xy} = \frac{1}{N}\sum_{i=1}^{N}\left( x_{i}-\bar{x} \right)^2 $$
+$$ \sigma_{xy} = \frac{1}{N}\sum_{i=1}^{N}\left( x_{i}-\bar{x} \right) \left( y_{i}-\bar{y} \right) $$
 
 As matrix arithmetic, it's written in a way that works for more than two variables.
 I'm not going to explain it, but here it is. ($\Sigma$ is the covariance matrix.)
@@ -48,6 +48,9 @@ $$ \sigma_{x}^2 = \sigma_{xx} = \operatorname{E}{\big[\left(x - \operatorname{E}
 
 More precisely, like the covariance, it could be this.
 $$ \sigma_{x}^2 = \frac{1}{N}\sum_{i=1}^{N}\left( x_{i}-\bar{x} \right) \left( x_{i}-\bar{x} \right) $$
+
+And that reduces to this.
+$$ \sigma_{xy} = \frac{1}{N}\sum_{i=1}^{N}\left( x_{i}-\bar{x} \right)^2 $$
 
 As matrix arithmetic, it's the diagonal of the covariance. Again, I'm not really going to explain it.
 $$ diag\left(\Sigma\right) $$
