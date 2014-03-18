@@ -1,16 +1,18 @@
-baseplot <- function(main, formula, data) {
-  plot(formula = formula, data = data, type = 'p', bty = 'n',
+attach(iris)
+attach(cars)
+baseplot <- function(main, y, x) {
+  plot(y ~ x, type = 'p', bty = 'n',
     main = main, pch = 21, bg = 'grey', col = NULL,
     col.axis = 'grey', col.lab = 'grey', col.main = 'grey', fg = 'grey')
 }
 irisplot <- function(main) {
-  baseplot(main, (Petal.Length ~ Petal.Width), iris)
+  baseplot(main, Petal.Length, Petal.Width)
 }
 
 meanplot <- function(main) {
   irisplot(main)
-  abline(h = mean(iris$Petal.Length), lty = 2)
-  abline(v = mean(iris$Petal.Width), lty = 2)
+  abline(h = mean(Petal.Length), lty = 2)
+  abline(v = mean(Petal.Width), lty = 2)
 }
 
 interjection <- function(main) {
@@ -35,7 +37,7 @@ rand <- data.frame(x = rnorm(100), y = rnorm(100))
 baseplot('Two air quality variables that move oppositely',
   formula = Ozone ~ Wind, data = airquality) 
 
-baseplot('Normal random noise', formula = y ~ x, data = rand)
+baseplot('Normal random noise', rand$y, rand$x)
 
 # Motivation for covariance
 interjection('We want a number\nthat describes\nwhether two variables\nmove together.')
@@ -56,18 +58,18 @@ irisplot('The iris variables')
 meanplot('Find the means')
 
 meanplot('Draw a rectangle')
-rect(xleft = mean(iris$Petal.Width),
-     ybottom = mean(iris$Petal.Length),
-     xright = iris$Petal.Width[c(44,72)],
-     ytop = iris$Petal.Length[c(44,72)])
+rect(xleft = mean(Petal.Width),
+     ybottom = mean(Petal.Length),
+     xright = Petal.Width[c(44,72)],
+     ytop = Petal.Length[c(44,72)])
 
 irisplot('Draw all the rectangles')
-valence <- (iris$Petal.Length - mean(iris$Petal.Length)) *
-           (iris$Petal.Width - mean(iris$Petal.Width)) > 0
-rect(xleft = mean(iris$Petal.Width),
-     ybottom = mean(iris$Petal.Length),
-     xright = iris$Petal.Width,
-     ytop = iris$Petal.Length,
+valence <- (Petal.Length - mean(Petal.Length)) *
+           (Petal.Width - mean(Petal.Width)) > 0
+rect(xleft = mean(Petal.Width),
+     ybottom = mean(Petal.Length),
+     xright = Petal.Width,
+     ytop = Petal.Length,
      col = rgb(1-valence, 0, valence,.1),
      lwd = 0)
 
@@ -107,22 +109,22 @@ interjection('The variance of a variable is\nthe covariance of the variable\nwit
 
 irisplot('Our two iris variables from before')
 interjection('Let\'s look at just one of them.')
-baseplot('The points all fall along the same line.', (Petal.Length ~ Petal.Length), iris)
+baseplot('The points all fall along the same line.', Petal.Length, Petal.Length)
 interjection('Let\'s find the variance of Petal.Length')
 
-baseplot('Draw all the rectangles', (Petal.Length ~ Petal.Length), iris)
-rect(xleft = mean(iris$Petal.Length),
-     ybottom = mean(iris$Petal.Length),
-     xright = iris$Petal.Length,
-     ytop = iris$Petal.Length,
+baseplot('Draw all the rectangles', Petal.Length, Petal.Length)
+rect(xleft = mean(Petal.Length),
+     ybottom = mean(Petal.Length),
+     xright = Petal.Length,
+     ytop = Petal.Length,
      col = rgb(0, 0, 1,.1),
      lwd = 0)
 
-baseplot('Why no red rectangles?', (Petal.Length ~ Petal.Length), iris)
-rect(xleft = mean(iris$Petal.Length),
-     ybottom = mean(iris$Petal.Length),
-     xright = iris$Petal.Length,
-     ytop = iris$Petal.Length,
+baseplot('Why no red rectangles?', Petal.Length, Petal.Length)
+rect(xleft = mean(Petal.Length),
+     ybottom = mean(Petal.Length),
+     xright = Petal.Length,
+     ytop = Petal.Length,
      col = rgb(0, 0, 1,.1),
      lwd = 0)
 
@@ -157,17 +159,17 @@ interjection('Covariance has units!\n\n(x-unit times y-unit)')
 interjection('Which relationship is stronger\n(more linear)?')
 
 par(mfrow = 1:2)
-.cov <- round(cov(iris$Sepal.Length,iris$Sepal.Width), 2)
+.cov <- round(cov(Sepal.Length,Sepal.Width), 2)
 irisplot(paste0('Irises (cov = ', .cov, ' cm^2)'))
-.cov <- round(cov(cars$speed,cars$dist), 2)
-baseplot(paste0('Cars (cov =', .cov, ' mph*ft)'), (speed ~ dist), cars)
+.cov <- round(cov(speed,dist), 2)
+baseplot(paste0('Cars (cov =', .cov, ' mph*ft)'), speed, dist)
 par(mfrow = c(1,1))
 
 interjection('Oh noes!')
 interjection('Let\'s divide\ncovariance by the variances\nto standardize it.')
 
-a <- sd(iris$Sepal.Length)
-b <- sd(iris$Sepal.Width)
+a <- sd(Sepal.Length)
+b <- sd(Sepal.Width)
 ab <- max(a,b)
 
 corbase <- function() {
@@ -186,6 +188,24 @@ corbase()
 rect(xleft = 0, ybottom = 0, xright = b, ytop = a, col = 'black', lwd = 0)
 text(b/2,a/2,'sd(Sepal.Width)*\nsd(Sepal.Length)', col = 'white')
 text(-a/2,-b/2,'cov(Sepal.Width,Sepal.Length)\ncannot be bigger than\nblack rectangle.')
+
+interjection('Why?')
+
+baseplot('Covariance has red rectangles.', Petal.Length, Petal.Length)
+rect(xleft = mean(Petal.Length),
+     ybottom = mean(Petal.Length),
+     xright = Petal.Length,
+     ytop = Petal.Length,
+     col = rgb(0, 0, 1,.1),
+     lwd = 0)
+
+baseplot('Variance doesn\'t have red rectangles.', Petal.Length, Petal.Length)
+rect(xleft = mean(Petal.Length),
+     ybottom = mean(Petal.Length),
+     xright = Petal.Length,
+     ytop = Petal.Length,
+     col = rgb(0, 0, 1,.1),
+     lwd = 0)
 
 
 }
