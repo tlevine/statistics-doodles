@@ -1,5 +1,5 @@
-baseplot <- function(main) {
-  plot(Petal.Length ~ Petal.Width, data = iris, type = 'p', bty = 'n',
+baseplot <- function(main, formula = (Petal.Length ~ Petal.Width), data = iris) {
+  plot(formula = formula, data = data, type = 'p', bty = 'n',
     main = main, pch = 21, bg = 'grey', col = NULL,
     col.axis = 'grey', col.lab = 'grey', col.main = 'grey', fg = 'grey')
 }
@@ -7,6 +7,6 @@ baseplot <- function(main) {
 #pdf('covariance.pdf')
 baseplot('Two iris variables')
 
-#baseplot('')
+baseplot('How')
 #points(Petal.Length ~ Petal.Width, data = iris)
 #dev.off()
