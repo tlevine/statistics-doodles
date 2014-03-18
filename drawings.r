@@ -15,6 +15,8 @@ interjection <- function(main) {
   text(0.5, 0.5, cex = 2, label = main, font = 2)
 }
 
+
+slides <- function() {
 # Introduction
 interjection('What is a statistic?')
 interjection('A number that describes\nlots of other numbers')
@@ -92,7 +94,9 @@ plot(c(-1,1),c(-1,1),main = 'This blue sliver is the covariance.',
 rect(xleft = -.3, xright = -.3 + (.5/nrow(iris)), ybottom = -1, ytop = 1,
   col = 'blue', lwd = 0)
 
-interjection('(Review the previous slides quickly.)')
+interjection('Let\'s review the previous slides quickly.')
+}
 
 #pdf('doodles.pdf', width = 11, height = 8.5)
+slides()
 #dev.off()
