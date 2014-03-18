@@ -102,6 +102,8 @@ interjection('')
 
 # Computing variance
 interjection('Variance')
+interjection('Variance tells us\nhow spread out\nsome numbers are.')
+interjection('(Add examples here.)')
 interjection('The variance of a variable is\nthe covariance of the variable\nwith itself.')
 
 irisplot('Our two iris variables from before')
@@ -149,9 +151,18 @@ interjection('')
 
 # Correlation
 interjection('A problem with covariance')
-interjection('Covariance has units!\n\n')
+interjection('Covariance has units!\n\n(x-unit times y-unit)')
+interjection('Which relationship is stronger\n(more linear)?')
 
+par(mfrow = 1:2)
+.cov <- round(cov(iris[c('Sepal.Length','Sepal.Width')])[1,2], 2)
+irisplot(paste0('Irises (cov = ', .cov, ' cm^2)'))
+.cov <- round(cov(cars[c('speed','dist')])[1,2], 2)
+baseplot(paste0('Cars (cov =', .cov, ' mph*ft)'), (speed ~ dist), cars)
+
+par(mfrow = c(1,1))
 }
+
 
 #pdf('doodles.pdf', width = 11, height = 8.5)
 slides()
