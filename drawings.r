@@ -206,6 +206,34 @@ rect(xleft = mean(Petal.Length),
      col = rgb(0, 0, 1,.1),
      lwd = 0)
 
+corbase()
+rect(xleft = 0, ybottom = 0, xright = b, ytop = a, col = 'black', lwd = 0)
+text(b/2,a/2,'sd(Sepal.Width)*\nsd(Sepal.Length)', col = 'white')
+text(-a/2,-b/2,'cov(Sepal.Width,Sepal.Length)\ncannot be bigger than\nblack rectangle.')
+text('(Add covariance on top in blue)')
+
+interjection('What if covariance is negative?')
+
+corbase()
+rect(xleft = 0, ybottom = 0, xright = b, ytop = a, col = 'black', lwd = 0)
+text(b/2,a/2,'sd(Sepal.Width)*\nsd(Sepal.Length)', col = 'white')
+text(-a/2,-b/2,'cov(Sepal.Width,Sepal.Length)\ncannot be bigger than\nblack rectangle.')
+text('(Add covariance on top in red)')
+
+interjection('Correlation, review')
+
+interjection('')
+interjection('If we transform the covariance a bit,\nwe can make predictions.')
+interjection('y = b0  + b1 * x')
+interjection('Let\'s  find b1.')
+
+corbase()
+rect(xleft = 0, ybottom = 0, xright = b, ytop = a, col = 'black', lwd = 0)
+text(b/2,a/2,'sd(Sepal.Width)*\nsd(Sepal.Length)', col = 'white')
+text(-a/2,-b/2,'cov(Sepal.Width,Sepal.Length)\ncannot be bigger than\nblack rectangle.')
+text('(Add the thing on top)')
+
+
 }
 
 
