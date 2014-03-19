@@ -1,0 +1,47 @@
+Statistics with doodles
+=======================
+Here are materials for a talk on statistics with doodles.
+
+Abstract
+--------
+
+XXX
+
+Audience
+--------
+This is mostly intended for people who have taken a conventional
+statistics course, but others will probably learn something too.
+
+How to
+------
+
+Talk through the introduction slides, then
+talk through the doodles slides, falling back
+to a whiteboard (or whatever) as needed.
+
+While doing the main doodling, also gradually fill
+out the table described below on the whiteboard.
+The table has three columns, called "doodle", "stat 100",
+and "stat 200". It has four rows, one for each of the
+statistics that we are discussing.
+
+In this table, the doodle is an iconic doodle that reminds
+us of the full doodle that we talked through. The stat 100
+is the formula for the bivariate version of the statistic
+in summation notation. The stat 200 is the formula for the
+more-than-two-variate version in matrix notation.
+
+Grand points to make and conclude with
+---------------------------------------
+
+1. A statistic is a number that describes a lot of other
+    numbers. We use them because we can't fit lots of numbers
+    in our brains all at once.
+2. Covariance is a statistic that describes the strength of
+    linear relationships.
+3. Variance is a statistic that describes how spread-out some
+    numbers are.
+4. Correlation is a standardized version of covariance.
+5. (Beta coefficients for) least-squares regression describe
+    one variable based on other variables.
+6. You can pretty much always draw math.
