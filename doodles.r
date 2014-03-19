@@ -239,9 +239,6 @@ interjection('Let\'s review again.')
 
 interjection('')
 
-# Non-positive relationships
-interjection('(Add examples from air quality and random.)')
-
 # Correlation
 interjection('A problem with covariance')
 interjection('Covariance has units!\n\n(x-unit times y-unit)')
