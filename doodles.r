@@ -259,8 +259,8 @@ a <- sd(Sepal.Length)
 b <- sd(Sepal.Width)
 ab <- max(a,b)
 
-corbase <- function(main = '', x = -1) {
-  plot(c(x * ab,ab),c(-ab,ab),main = main, type = 'n', axes = F, xlab = '', ylab = '')
+corbase <- function(main = '', low = -1) {
+  plot(c(low * ab,ab),c(low * ab,ab),main = main, type = 'n', axes = F, xlab = '', ylab = '')
   rect(xright = 0, ybottom = 0, xleft = -a, ytop = a, col = 'grey', lwd = 0)
   text(-a/2,a/2,'var(Sepal.Width)')
   rect(xleft = 0, ytop = 0, xright = b, ybottom = -b, col = 'grey', lwd = 0)
@@ -299,12 +299,37 @@ rect(xleft = 0, ybottom = 0, xright = b, ytop = a, col = 'black', lwd = 0)
 text(b/2,a/2,'sd(Sepal.Width)*\nsd(Sepal.Length)', col = 'white')
 text(-a/2,-b/2,'cov(Sepal.Width,Sepal.Length)\ncannot be bigger than\nblack rectangle.')
 
-corbase('Let\'s zoom in.', x = -.1)
+corbase('Let\'s zoom in.', low = -.1)
 rect(xleft = 0, ybottom = 0, xright = b, ytop = a, col = 'black', lwd = 0)
-text(b/2,a/2,'sd(Sepal.Width)*\nsd(Sepal.Length)', col = 'white')
-text(-a/2,-b/2,'cov(Sepal.Width,Sepal.Length)\ncannot be bigger than\nblack rectangle.')
+
+r <-  cor(Sepal.Length,Sepal.Width)
+corbase('Squish covariance vertically into the rectangle.', low = -.1)
+rect(xleft = 0, ybottom = 0, xright = b, ytop = a, col = 'black', lwd = 0)
+rect(xleft = 0, ybottom = 0, xright = b, ytop = a * r, col = 'blue', lwd = 0)
+text(b/2,r*a/2,'cov(Sepal.Width, Sepal.Length)', col = 'blue')
+text(0, r*a/2, 'r * sd(Sepal.Length')
+
+corbase('Squish covariance horizontally into the rectangle.', low = -.1)
+rect(xleft = 0, ybottom = 0, xright = b, ytop = a, col = 'black', lwd = 0)
+rect(xleft = 0, ybottom = 0, xright = b * r, ytop = a, col = 'blue', lwd = 0)
+text(r*b/2,a/2,'cov(Sepal.Width, Sepal.Length)', col = 'blue')
+text(r*b/2, 0, 'r * sd(Sepal.Width', pos = 2)
+
+corbase('People like to talk about R-squared.', low = -.1)
+rect(xleft = 0, ybottom = 0, xright = b, ytop = a, col = 'black', lwd = 0)
+rect(xleft = 0, ybottom = 0, xright = b * r, ytop = a * r, col = 'blue', lwd = 0)
+text(r*b/2,a/2,'cov(Sepal.Width, Sepal.Length)', col = 'blue')
+text(0, r*a/2, 'r ^ 2 * sd(Sepal.Length')
+text(r*b/2, 0, 'r ^ 2 * sd(Sepal.Width', pos = 2)
 
 interjection('What if covariance is negative (red)?')
+
+# XXX
+corbase('R is the same, just negative.', low = -.1)
+rect(xleft = 0, ybottom = 0, xright = b, ytop = a, col = 'black', lwd = 0)
+rect(xleft = 0, ybottom = 0, xright = b, ytop = a * r, col = 'red', lwd = 0)
+text(b/2,r*a/2,'cov(Sepal.Width, Sepal.Length)', col = 'red')
+text(0, r*a/2, 'r * sd(Sepal.Length')
 
 # warning here!
 
