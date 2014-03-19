@@ -23,6 +23,7 @@ interjection <- function(main) {
 }
 
 slides <- function() {
+
 # Introduction
 interjection('What is a statistic?')
 interjection('A number that describes\nlots of other numbers')
@@ -258,8 +259,8 @@ a <- sd(Sepal.Length)
 b <- sd(Sepal.Width)
 ab <- max(a,b)
 
-corbase <- function() {
-  plot(c(-ab,ab),c(-ab,ab),main = '', type = 'n', axes = F, xlab = '', ylab = '')
+corbase <- function(main = '', x = -1) {
+  plot(c(x * ab,ab),c(-ab,ab),main = main, type = 'n', axes = F, xlab = '', ylab = '')
   rect(xright = 0, ybottom = 0, xleft = -a, ytop = a, col = 'grey', lwd = 0)
   text(-a/2,a/2,'var(Sepal.Width)')
   rect(xleft = 0, ytop = 0, xright = b, ybottom = -b, col = 'grey', lwd = 0)
@@ -297,15 +298,21 @@ corbase()
 rect(xleft = 0, ybottom = 0, xright = b, ytop = a, col = 'black', lwd = 0)
 text(b/2,a/2,'sd(Sepal.Width)*\nsd(Sepal.Length)', col = 'white')
 text(-a/2,-b/2,'cov(Sepal.Width,Sepal.Length)\ncannot be bigger than\nblack rectangle.')
-text('(Add covariance on top in blue)')
+
+corbase('Let\'s zoom in.', x = -.1)
+rect(xleft = 0, ybottom = 0, xright = b, ytop = a, col = 'black', lwd = 0)
+text(b/2,a/2,'sd(Sepal.Width)*\nsd(Sepal.Length)', col = 'white')
+text(-a/2,-b/2,'cov(Sepal.Width,Sepal.Length)\ncannot be bigger than\nblack rectangle.')
 
 interjection('What if covariance is negative (red)?')
+
+# warning here!
 
 corbase()
 rect(xleft = 0, ybottom = 0, xright = b, ytop = a, col = 'black', lwd = 0)
 text(b/2,a/2,'sd(Sepal.Width)*\nsd(Sepal.Length)', col = 'white')
 text(-a/2,-b/2,'cov(Sepal.Width,Sepal.Length)\ncannot be bigger than\nblack rectangle.')
-text('(Add covariance on top in red)')
+text(0,0,'(Add covariance on top in red)')
 
 interjection('Correlation, review')
 
@@ -318,12 +325,12 @@ corbase()
 rect(xleft = 0, ybottom = 0, xright = b, ytop = a, col = 'black', lwd = 0)
 text(b/2,a/2,'sd(Sepal.Width)*\nsd(Sepal.Length)', col = 'white')
 text(-a/2,-b/2,'cov(Sepal.Width,Sepal.Length)\ncannot be bigger than\nblack rectangle.')
-text('(Add the thing on top)')
+text(0,0,'(Add the thing on top)')
 
 
 }
 
 
-#pdf('doodles.pdf', width = 11, height = 8.5)
+pdf('doodles.pdf', width = 11, height = 8.5)
 slides()
-#dev.off()
+dev.off()
