@@ -246,7 +246,7 @@ interjection('Covariance has units!\n\n(x-unit times y-unit)')
 interjection('Which relationship is stronger\n(more linear)?')
 
 par(mfrow = 1:2)
-.cov <- round(cov(Sepal.Length,Sepal.Width), 2)
+.cov <- round(cov(Petal.Length,Petal.Width), 2)
 irisplot(paste0('Irises (cov = ', .cov, ' cm^2)'))
 .cov <- round(cov(speed,dist), 2)
 baseplot(paste0('Cars (cov =', .cov, ' mph*ft)'), speed, dist)
@@ -255,26 +255,26 @@ par(mfrow = c(1,1))
 interjection('Oh noes!')
 interjection('Let\'s divide\ncovariance by the variances\nto standardize it.')
 
-a <- sd(Sepal.Length)
-b <- sd(Sepal.Width)
+a <- sd(Petal.Length)
+b <- sd(Petal.Width)
 ab <- max(a,b)
 
 corbase <- function(main = '', low = -1) {
   plot(c(low * ab,ab),c(low * ab,ab),main = main, type = 'n', axes = F, xlab = '', ylab = '')
   rect(xright = 0, ybottom = 0, xleft = -a, ytop = a, col = 'grey', lwd = 0)
-  text(-a/2,a/2,'var(Sepal.Width)')
+  text(-a/2,a/2,'var(Petal.Width)')
   rect(xleft = 0, ytop = 0, xright = b, ybottom = -b, col = 'grey', lwd = 0)
-  text(b/2,-b/2,'var(Sepal.Length)')
+  text(b/2,-b/2,'var(Petal.Length)')
 }
 
 corbase()
 rect(xleft = 0, ybottom = 0, xright = b, ytop = a, col = 'black', lwd = 0)
-text(b/2,a/2,'sd(Sepal.Width)*\nsd(Sepal.Length)', col = 'white')
+text(b/2,a/2,'sd(Petal.Width)*\nsd(Petal.Length)', col = 'white')
 
 corbase()
 rect(xleft = 0, ybottom = 0, xright = b, ytop = a, col = 'black', lwd = 0)
-text(b/2,a/2,'sd(Sepal.Width)*\nsd(Sepal.Length)', col = 'white')
-text(-a/2,-b/2,'cov(Sepal.Width,Sepal.Length)\ncannot be bigger than\nblack rectangle.')
+text(b/2,a/2,'sd(Petal.Width)*\nsd(Petal.Length)', col = 'white')
+text(-a/2,-b/2,'cov(Petal.Width,Petal.Length)\ncannot be bigger than\nblack rectangle.')
 
 interjection('Why?')
 
@@ -296,13 +296,13 @@ rect(xleft = mean(Petal.Length),
 
 corbase()
 rect(xleft = 0, ybottom = 0, xright = b, ytop = a, col = 'black', lwd = 0)
-text(b/2,a/2,'sd(Sepal.Width)*\nsd(Sepal.Length)', col = 'white')
-text(-a/2,-b/2,'cov(Sepal.Width,Sepal.Length)\ncannot be bigger than\nblack rectangle.')
+text(b/2,a/2,'sd(Petal.Width)*\nsd(Petal.Length)', col = 'white')
+text(-a/2,-b/2,'cov(Petal.Width,Petal.Length)\ncannot be bigger than\nblack rectangle.')
 
 corbase('Let\'s zoom in.', low = -.1)
 rect(xleft = 0, ybottom = 0, xright = b, ytop = a, col = 'black', lwd = 0)
 
-r <-  cor(Sepal.Length,Sepal.Width)
+r <-  cor(Petal.Length,Petal.Width)
 corbase('Squish covariance vertically into the rectangle.', low = -.1)
 rect(xleft = 0, ybottom = 0, xright = b, ytop = a, col = 'black', lwd = 0)
 rect(xleft = 0, ybottom = 0, xright = b, ytop = a * r, col = 'blue', lwd = 0)
@@ -312,23 +312,23 @@ interjection('Correlation (R)\nis the ratio of\nthe small rectangle\nto the big 
 corbase('Squish covariance vertically into the rectangle.', low = -.1)
 rect(xleft = 0, ybottom = 0, xright = b, ytop = a, col = 'black', lwd = 0)
 rect(xleft = 0, ybottom = 0, xright = b, ytop = a * r, col = 'blue', lwd = 0)
-text(b/2,r*a/2,'cov(Sepal.Width, Sepal.Length)', col = 'blue')
-text(0, r*a/2, 'R * sd(Sepal.Length')
+text(b/2,r*a/2,'cov(Petal.Width, Petal.Length)', col = 'blue')
+text(0, r*a/2, 'R * sd(Petal.Length')
 
 corbase('Squish covariance horizontally into the rectangle.', low = -.1)
 rect(xleft = 0, ybottom = 0, xright = b, ytop = a, col = 'black', lwd = 0)
 rect(xleft = 0, ybottom = 0, xright = b * r, ytop = a, col = 'blue', lwd = 0)
-text(r*b/2,a/2,'cov(Sepal.Width, Sepal.Length)', col = 'blue')
-text(r*b/2, 0, 'R * sd(Sepal.Width', pos = 2)
+text(r*b/2,a/2,'cov(Petal.Width, Petal.Length)', col = 'blue')
+text(r*b/2, 0, 'R * sd(Petal.Width', pos = 2)
 
 interjection('People like to\ntalk about R-squared.')
 
 corbase('Intersect the two squished covariance rectangles.', low = -.1)
 rect(xleft = 0, ybottom = 0, xright = b, ytop = a, col = 'black', lwd = 0)
 rect(xleft = 0, ybottom = 0, xright = b * r, ytop = a * r, col = 'purple', lwd = 0)
-text(r*b/2,a/2,'cov(Sepal.Width, Sepal.Length)', col = 'purple')
-text(0, r*a/2, 'R ^ 2 * sd(Sepal.Length')
-text(r*b/2, 0, 'R ^ 2 * sd(Sepal.Width', pos = 2)
+text(r*b/2,a/2,'cov(Petal.Width, Petal.Length)', col = 'purple')
+text(0, r*a/2, 'R ^ 2 * sd(Petal.Length')
+text(r*b/2, 0, 'R ^ 2 * sd(Petal.Width', pos = 2)
 
 interjection('What if covariance is negative (red)?')
 
@@ -379,21 +379,31 @@ rect(xleft = -.3, xright = -.3 + (.5/nrow(iris)), ybottom = -1, ytop = 1,
 corbase('Correlation is a ratio of areas with the same units.', low = -.1)
 rect(xleft = 0, ybottom = 0, xright = b, ytop = a, col = 'black', lwd = 0)
 rect(xleft = 0, ybottom = 0, xright = b, ytop = a * r, col = 'blue', lwd = 0)
-text(b/2,r*a/2,'cov(Sepal.Width, Sepal.Length)', col = 'blue')
-text(0, r*a/2, 'R * sd(Sepal.Length')
+text(b/2,r*a/2,'cov(Petal.Width, Petal.Length)', col = 'blue')
+text(0, r*a/2, 'R * sd(Petal.Length')
 
 interjection('The unit of b1 must be y-unit/x-unit.')
 
 corbase('Our covariance picture')
 rect(xleft = 0, ybottom = 0, xright = b, ytop = a * r, col = 'blue', lwd = 0)
-text(b/2,r*a/2,'cov(Sepal.Width, Sepal.Length)', col = 'blue')
-text(0, r*a/2, 'R * sd(Sepal.Length')
+text(b/2,r*a/2,'cov(Petal.Width, Petal.Length)', col = 'blue')
+text(0, r*a/2, 'R * sd(Petal.Length')
 
-.cov <- cov(Sepal.Width,Sepal.Length)
-corbase('Lay the covariance above one of the variances instead.')
-rect(xleft = -a, xright = 0, ybottom = a - (.cov/a), ytop = a, col = 'blue', lwd = 0)
-text(b/2,r*a/2,'cov(Sepal.Width, Sepal.Length)', col = 'blue')
-text(0, r*a/2, 'R * sd(Sepal.Length')
+.adj <- cov(Petal.Width,Petal.Length)/sd(Petal.Length)
+corbase('Lay the covariance over one of the variances instead.')
+rect(xleft = -a, xright = 0, ybottom = a * (1 - .adj), ytop = a, col = 'blue', lwd = 0)
+text(-a/2,b/2,'cov(Petal.Width, Petal.Length)', col = 'blue')
+
+corbase('Petal.Width = b0 + b1 * Petal.Length')
+rect(xleft = -a, xright = 0, ybottom = a * (1 - .adj), ytop = a, col = 'blue', lwd = 0)
+text(-a/2,b/2,'cov(Petal.Width, Petal.Length)', col = 'blue')
+text(0,b/2,'b1 * sd(Petal.Length)', col = 'blue')
+
+.adj <- cov(Petal.Width,Petal.Length)/sd(Petal.Width)
+corbase('Lay the covariance over the other variance.')
+rect(xleft = 0, xright = b, ybottom = -b, ytop = -b  * (1 - .adj), col = 'blue', lwd = 0)
+text(a/2,-b/2,'cov(Petal.Width, Petal.Length)', col = 'blue')
+text(a/2,0,'b1 * sd(Petal.Length)', col = 'blue')
 
 }
 
