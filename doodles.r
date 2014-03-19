@@ -166,6 +166,29 @@ rect(xleft = -.3, xright = -.3 + (.5/nrow(iris)), ybottom = -1, ytop = 1,
   col = 'red', lwd = 0)
 text(.3, 0, 'But it\'s negative!')
 
+irisplot('What if we have as much red as blue?')
+valence <- (rand$y - mean(rand$y)) *
+           (rand$x - mean(rand$x)) > 0
+rect(xleft = mean(rand$x),
+     ybottom = mean(rand$y),
+     xright = rand$x,
+     ytop = rand$y,
+     col = rgb(1-valence, 0, valence,.1),
+     lwd = 0)
+
+plot(c(-1,1),c(-1,1),main = 'Add the blues together. (This is at a different scale.)',
+  type = 'n', axes = F, xlab = '', ylab = '')
+rect(xleft = -.45, ybottom = -.45, xright = .55, ytop = .55, lwd = 0, col = 'blue')
+
+plot(c(-1,1),c(-1,1),main = 'Add the reds together.',
+  type = 'n', axes = F, xlab = '', ylab = '')
+rect(xleft = -.55, ybottom = -.55, xright = .45, ytop = .45, lwd = 0, col = 'red')
+
+plot(c(-1,1),c(-1,1),main = 'Subtract the reds.',
+  type = 'n', axes = F, xlab = '', ylab = '')
+points(0,0)
+text(0,-.5, '(Covariance is zero.)')
+
 
 # Computing variance
 interjection('Variance')
@@ -279,7 +302,7 @@ text(b/2,a/2,'sd(Sepal.Width)*\nsd(Sepal.Length)', col = 'white')
 text(-a/2,-b/2,'cov(Sepal.Width,Sepal.Length)\ncannot be bigger than\nblack rectangle.')
 text('(Add covariance on top in blue)')
 
-interjection('What if covariance is negative?')
+interjection('What if covariance is negative (red)?')
 
 corbase()
 rect(xleft = 0, ybottom = 0, xright = b, ytop = a, col = 'black', lwd = 0)
