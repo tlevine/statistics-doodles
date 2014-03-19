@@ -351,35 +351,49 @@ rect(xleft = 0, ybottom = 0, xright = b, ytop = a * r, col = 'red', lwd = 0)
 text(b/2,r*a/2,'cov(Ozone, Wind)', col = 'red')
 text(0, r*a/2, 'r * sd(Wind')
 
-interjection('Correlation, review')
+interjection('(Review correlation briefly.)')
 
 interjection('')
 interjection('If we transform the covariance a bit,\nwe can also make predictions.')
+interjection('Let\'s use x to predict y.')
 interjection('y = b0  + b1 * x')
-interjection('Let\'s  find b1.')
-interjection('If covariance is high\nand x is high,\ny should be high.\n\n(b1 should be very positive.)')
-interjection('If covariance is high\nand x is low,\ny should be low.\n\n(b1 should be very negative.)')
+interjection('Let\'s invent b1.')
+interjection('')
+interjection('What values should it have?')
+interjection('If covariance is high\nand x is high,\ny should be high.\n\n(b1 is very positive.)')
+interjection('If covariance is high\nand x is low,\ny should be low.\n\n(b1 is very negative.)')
+interjection('If covariance is low,\nwe have no idea what y is.\n\n(b1 is around zero.)')
+interjection('')
+interjection('Let\'s think about units again.')
 
-plot(c(-1,1),c(-1,1), type = 'n', ylab = 'x', xlab = 'cov(x,y)', main = 'We want a statistic that acts like this.', axes = F)
-axis(1, at = c(-.5,.5), labels = c('Very negative','Very positive'))
-axis(2, at = c(-.5,.5), labels = c('Low','High'))
-text( .5, .5, 'Very Positive')
-text(-.5, .5, 'Very Negative')
-text(-.5,-.5, 'Very Positive')
-text( .5,-.5, 'Very Negative')
+plot(c(-1,1),c(-1,1),main = 'Covariance is an area; its unit is the product of the x and y units.',
+  type = 'n', axes = F, xlab = '', ylab = '')
+rect(xleft = -.3, xright = -.3 + (.5/nrow(iris)), ybottom = -1, ytop = 1,
+  col = 'blue', lwd = 0)
 
-corbase('Zoom back out.')
+plot(c(-1,1),c(-1,1),main = 'Variance is a special covariance; its unit is the square of the x unit.',
+  type = 'n', axes = F, xlab = '', ylab = '')
+rect(xleft = -.3, xright = -.3 + (.5/nrow(iris)), ybottom = -1, ytop = 1,
+  col = 'blue', lwd = 0)
+
+corbase('Correlation is a ratio of areas with the same units.', low = -.1)
 rect(xleft = 0, ybottom = 0, xright = b, ytop = a, col = 'black', lwd = 0)
-rect(xleft = 0, ybottom = 0, xright = b, ytop = a * r, col = 'red', lwd = 0)
-text(b/2,r*a/2,'cov(Ozone, Wind)', col = 'red')
-text(0, r*a/2, 'r * sd(Wind')
+rect(xleft = 0, ybottom = 0, xright = b, ytop = a * r, col = 'blue', lwd = 0)
+text(b/2,r*a/2,'cov(Sepal.Width, Sepal.Length)', col = 'blue')
+text(0, r*a/2, 'R * sd(Sepal.Length')
 
-corbase()
-rect(xleft = 0, ybottom = 0, xright = b, ytop = a, col = 'black', lwd = 0)
-text(b/2,a/2,'sd(Sepal.Width)*\nsd(Sepal.Length)', col = 'white')
-text(-a/2,-b/2,'cov(Sepal.Width,Sepal.Length)\ncannot be bigger than\nblack rectangle.')
-text(0,0,'(Add the thing on top)')
+interjection('The unit of b1 must be y-unit/x-unit.')
 
+corbase('Our covariance picture')
+rect(xleft = 0, ybottom = 0, xright = b, ytop = a * r, col = 'blue', lwd = 0)
+text(b/2,r*a/2,'cov(Sepal.Width, Sepal.Length)', col = 'blue')
+text(0, r*a/2, 'R * sd(Sepal.Length')
+
+.cov <- cov(Sepal.Width,Sepal.Length)
+corbase('Lay the covariance above one of the variances instead.')
+rect(xleft = -a, xright = 0, ybottom = a - (.cov/a), ytop = a, col = 'blue', lwd = 0)
+text(b/2,r*a/2,'cov(Sepal.Width, Sepal.Length)', col = 'blue')
+text(0, r*a/2, 'R * sd(Sepal.Length')
 
 }
 
