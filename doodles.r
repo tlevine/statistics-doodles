@@ -72,6 +72,30 @@ rect(xleft = mean(Petal.Width),
      col = rgb(1-valence, 0, valence,.1),
      lwd = 0)
 
+irisplot('Why did I color them blue and red?')
+valence <- (Petal.Length - mean(Petal.Length)) *
+           (Petal.Width - mean(Petal.Width)) > 0
+rect(xleft = mean(Petal.Width),
+     ybottom = mean(Petal.Length),
+     xright = Petal.Width,
+     ytop = Petal.Length,
+     col = rgb(1-valence, 0, valence,.1),
+     lwd = 0)
+
+irisplot('Why did I color them blue and red?')
+valence <- (Petal.Length - mean(Petal.Length)) *
+           (Petal.Width - mean(Petal.Width)) > 0
+rect(xleft = mean(Petal.Width),
+     ybottom = mean(Petal.Length),
+     xright = Petal.Width,
+     ytop = Petal.Length,
+     col = rgb(1-valence, 0, valence,.1),
+     lwd = 0)
+text(x = max(Petal.Width), y = max(Petal.Length), pos = 2, label = 'Evidence of\nmovement together')
+text(x = min(Petal.Width), y = min(Petal.Length), pos = 4, label = 'Evidence of\nmovement together')
+text(x = max(Petal.Width), y = min(Petal.Length), pos = 2, label = 'Evidence of\nmovement oppositely')
+text(x = min(Petal.Width), y = max(Petal.Length), pos = 4, label = 'Evidence of\nmovement oppositely')
+
 plot(c(-1,1),c(-1,1),main = 'Add the blues together. (This is at a different scale.)',
   type = 'n', axes = F, xlab = '', ylab = '')
 rect(xleft = -1, ybottom = -1, xright = 1, ytop = 1, lwd = 0, col = 'blue')
@@ -99,6 +123,48 @@ rect(xleft = -.3, xright = -.3 + (.5/nrow(iris)), ybottom = -1, ytop = 1,
 
 interjection('Let\'s review the previous slides quickly.')
 interjection('')
+
+irisplot('What if we have more red than blue?')
+valence <- (Ozone - mean(Ozone)) *
+           (Wind - mean(Wind)) > 0
+rect(xleft = mean(Wind),
+     ybottom = mean(Ozone),
+     xright = Wind,
+     ytop = Ozone,
+     col = rgb(1-valence, 0, valence,.1),
+     lwd = 0)
+
+plot(c(-1,1),c(-1,1),main = 'Add the blues together. (This is at a different scale.)',
+  type = 'n', axes = F, xlab = '', ylab = '')
+rect(xleft = -1, ybottom = .8, xright = -.8, ytop = 1, lwd = 0, col = 'blue')
+
+plot(c(-1,1),c(-1,1),main = 'Add the reds together.',
+  type = 'n', axes = F, xlab = '', ylab = '')
+rect(xleft = -1, ybottom = -1, xright = 1, ytop = 1, lwd = 0, col = 'red')
+rect(xleft = -1, ybottom = .8, xright = -.8, ytop = 1, lwd = 0, col = 'blue')
+
+plot(c(-1,1),c(-1,1),main = 'Subtract the reds.',
+  type = 'n', axes = F, xlab = '', ylab = '')
+rect(xleft = -1, ybottom = -1, xright = 1, ytop = 1, lwd = 0, col = 'red')
+rect(xleft = -1, ybottom = .8, xright = -.8, ytop = 1, lwd = 0, col = 'white')
+
+plot(c(-1,1),c(-1,1),main = 'Divide into as many equal pieces as we have irises (n).',
+  type = 'n', axes = F, xlab = '', ylab = '')
+rect(xleft = -1, ybottom = -1, xright = 1, ytop = 1, lwd = 0, col = 'red')
+rect(xleft = -1, ybottom = .8, xright = -.8, ytop = 1, lwd = 0, col = 'white')
+abline(v = 2 * (-.5 + ((1:nrow(iris))/nrow(iris))))
+
+plot(c(-1,1),c(-1,1),main = 'This red sliver is the covariance.',
+  type = 'n', axes = F, xlab = '', ylab = '')
+rect(xleft = -.3, xright = -.3 + (.5/nrow(iris)), ybottom = -1, ytop = 1,
+  col = 'red', lwd = 0)
+
+plot(c(-1,1),c(-1,1),main = 'This red sliver is the covariance.',
+  type = 'n', axes = F, xlab = '', ylab = '')
+rect(xleft = -.3, xright = -.3 + (.5/nrow(iris)), ybottom = -1, ytop = 1,
+  col = 'red', lwd = 0)
+text(.3, 0, 'But it\'s negative!')
+
 
 # Computing variance
 interjection('Variance')
