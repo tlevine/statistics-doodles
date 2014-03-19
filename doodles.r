@@ -306,30 +306,44 @@ r <-  cor(Sepal.Length,Sepal.Width)
 corbase('Squish covariance vertically into the rectangle.', low = -.1)
 rect(xleft = 0, ybottom = 0, xright = b, ytop = a, col = 'black', lwd = 0)
 rect(xleft = 0, ybottom = 0, xright = b, ytop = a * r, col = 'blue', lwd = 0)
+
+interjection('Correlation (R)\nis the ratio of\nthe small rectangle\nto the big rectangle.')
+
+corbase('Squish covariance vertically into the rectangle.', low = -.1)
+rect(xleft = 0, ybottom = 0, xright = b, ytop = a, col = 'black', lwd = 0)
+rect(xleft = 0, ybottom = 0, xright = b, ytop = a * r, col = 'blue', lwd = 0)
 text(b/2,r*a/2,'cov(Sepal.Width, Sepal.Length)', col = 'blue')
-text(0, r*a/2, 'r * sd(Sepal.Length')
+text(0, r*a/2, 'R * sd(Sepal.Length')
 
 corbase('Squish covariance horizontally into the rectangle.', low = -.1)
 rect(xleft = 0, ybottom = 0, xright = b, ytop = a, col = 'black', lwd = 0)
 rect(xleft = 0, ybottom = 0, xright = b * r, ytop = a, col = 'blue', lwd = 0)
 text(r*b/2,a/2,'cov(Sepal.Width, Sepal.Length)', col = 'blue')
-text(r*b/2, 0, 'r * sd(Sepal.Width', pos = 2)
+text(r*b/2, 0, 'R * sd(Sepal.Width', pos = 2)
 
-corbase('People like to talk about R-squared.', low = -.1)
+interjection('People like to\ntalk about R-squared.')
+
+corbase('Intersect the two squished covariance rectangles.', low = -.1)
 rect(xleft = 0, ybottom = 0, xright = b, ytop = a, col = 'black', lwd = 0)
-rect(xleft = 0, ybottom = 0, xright = b * r, ytop = a * r, col = 'blue', lwd = 0)
-text(r*b/2,a/2,'cov(Sepal.Width, Sepal.Length)', col = 'blue')
-text(0, r*a/2, 'r ^ 2 * sd(Sepal.Length')
-text(r*b/2, 0, 'r ^ 2 * sd(Sepal.Width', pos = 2)
+rect(xleft = 0, ybottom = 0, xright = b * r, ytop = a * r, col = 'purple', lwd = 0)
+text(r*b/2,a/2,'cov(Sepal.Width, Sepal.Length)', col = 'purple')
+text(0, r*a/2, 'R ^ 2 * sd(Sepal.Length')
+text(r*b/2, 0, 'R ^ 2 * sd(Sepal.Width', pos = 2)
 
 interjection('What if covariance is negative (red)?')
 
-# XXX
 corbase('R is the same, just negative.', low = -.1)
 rect(xleft = 0, ybottom = 0, xright = b, ytop = a, col = 'black', lwd = 0)
 rect(xleft = 0, ybottom = 0, xright = b, ytop = a * r, col = 'red', lwd = 0)
-text(b/2,r*a/2,'cov(Sepal.Width, Sepal.Length)', col = 'red')
-text(0, r*a/2, 'r * sd(Sepal.Length')
+text(b/2,r*a/2,'cov(Ozone, Wind)', col = 'red')
+text(0, r*a/2, 'r * sd(Wind')
+
+corbase('R-squared is the same, and it is always positive.', low = -.1)
+rect(xleft = 0, ybottom = 0, xright = b, ytop = a, col = 'black', lwd = 0)
+rect(xleft = 0, ybottom = 0, xright = b * r, ytop = a * r, col = 'purple', lwd = 0)
+text(r*b/2,a/2,'cov(Ozone, Wind)', col = 'purple')
+text(0, r*a/2, 'r ^ 2 * sd(Wind')
+text(r*b/2, 0, 'r ^ 2 * sd(Ozone', pos = 2)
 
 # warning here!
 
