@@ -1,6 +1,7 @@
 attach(iris)
+attach(na.omit(airquality))
 attach(cars)
-attach(airquality)
+
 baseplot <- function(main, y, x) {
   plot(y ~ x, type = 'p', bty = 'n',
     main = main, pch = 21, bg = 'grey', col = NULL,
