@@ -500,8 +500,9 @@ thoughtful.thoughts <- function() {
   interjection('')
 
   plot(c(-1,1),c(-1,1),xlab='',ylab='',type='n',axes=F,main='A statistic is a number that describes a lot of other numbers.')
+  text(rep(seq(-1,1,.1),each=21),rep(seq(-1,1,.1),21),round(100*runif(400)))
   
-  irisplot('Covariance describes the strength of linear relationships.')
+  irisplot('The covariance statistic describes the strength of linear relationships.')
   valence <- (Petal.Length - mean(Petal.Length)) *
              (Petal.Width - mean(Petal.Width)) > 0
   rect(xleft = mean(Petal.Width),
@@ -511,7 +512,7 @@ thoughtful.thoughts <- function() {
        col = rgb(1-valence, 0, valence,.1),
        lty = 'blank')
 
-  baseplot('Variance describes how spread-out some numbers are.', Petal.Length, Petal.Length, asp = 1)
+  baseplot('The variance statistic describes how spread-out some numbers are.', Petal.Length, Petal.Length, asp = 1)
   rect(xleft = mean(Petal.Length),
        ybottom = mean(Petal.Length),
        xright = Petal.Length,
@@ -519,7 +520,7 @@ thoughtful.thoughts <- function() {
        col = rgb(0, 0, 1,.1),
        lty = 'blank')
 
-
+  r <-  cor(Petal.Length,Petal.Width)
   a <- sd(Petal.Length)
   b <- sd(Petal.Width)
   ab <- max(a,b)
@@ -530,7 +531,7 @@ thoughtful.thoughts <- function() {
     rect(xleft = 0, ytop = 0, xright = b, ybottom = -b, col = 'grey', lty = 'blank')
     text(b/2,-b/2,'var(Petal.Length)')
   }
-  corbase('Correlation is a standardized version of covariance.')
+  corbase('The correlation statistic is a standardized version of covariance.')
   rect(xleft = 0, ybottom = 0, xright = b, ytop = a, col = 'black', lty = 'blank')
   rect(xleft = 0, ybottom = 0, xright = b * r, ytop = a * r, col = 'purple', lty = 'blank')
   text(r*b/2,a/2,'cov(Petal.Width, Petal.Length)', col = 'purple')
