@@ -376,6 +376,13 @@ text(r*b/2,a/2,'cov(Petal.Width, Petal.Length)', col = 'purple')
 text(0, r*a/2, 'R ^ 2 * sd(Petal.Length)',srt = 90, pos = 2, col = 'purple', font = 2)
 text(r*b/2, 0, 'R ^ 2 * sd(Petal.Width)', adj = c(0.5,1.5), col = 'purple', font = 2)
 
+corbase('Intersect the two squished covariance rectangles.')
+rect(xleft = 0, ybottom = 0, xright = b, ytop = a, col = 'black', lty = 'blank')
+rect(xleft = 0, ybottom = 0, xright = b * r, ytop = a * r, col = 'purple', lty = 'blank')
+text(r*b/2,a/2,'cov(Petal.Width, Petal.Length)', col = 'purple')
+text(0, r*a/2, 'R ^ 2 * sd(Petal.Length)',srt = 90, pos = 2, col = 'purple', font = 2)
+text(r*b/2, 0, 'R ^ 2 * sd(Petal.Width)', adj = c(0.5,1.5), col = 'purple', font = 2)
+
 interjection('That was for very\npositive (blue) covariances.')
 interjection('What if covariance is negative (red)?')
 
@@ -491,11 +498,49 @@ text(a/2,0,'b1 * sd(Petal.Length)', col = 'blue', font = 2, srt = -90)
 thoughtful.thoughts <- function() {
   interjection('Some things to remember')
   interjection('')
-  interjection('A statistic is a number\nthat describes a lot\nof other numbers.')
-  interjection('Covariance describes\nthe strength of\nlinear relationships.')
-  interjection('Variance describes\nhow spread-out\nsome numbers are.')
-  interjection('Correlation is a\nstandardized version\nof covariance.')
-  interjection('(Beta coefficients for)\nleast-squares regression\npredict one variable\nbased on another.')
+
+  plot(c(-1,1),c(-1,1),xlab='',ylab='',type='n',axes=F,main='A statistic is a number that describes a lot of other numbers.')
+  
+  irisplot('Covariance describes the strength of linear relationships.')
+  valence <- (Petal.Length - mean(Petal.Length)) *
+             (Petal.Width - mean(Petal.Width)) > 0
+  rect(xleft = mean(Petal.Width),
+       ybottom = mean(Petal.Length),
+       xright = Petal.Width,
+       ytop = Petal.Length,
+       col = rgb(1-valence, 0, valence,.1),
+       lty = 'blank')
+
+  baseplot('Variance describes how spread-out some numbers are.', Petal.Length, Petal.Length, asp = 1)
+  rect(xleft = mean(Petal.Length),
+       ybottom = mean(Petal.Length),
+       xright = Petal.Length,
+       ytop = Petal.Length,
+       col = rgb(0, 0, 1,.1),
+       lty = 'blank')
+
+
+  a <- sd(Petal.Length)
+  b <- sd(Petal.Width)
+  ab <- max(a,b)
+  corbase <- function(main = '', low = -1) {
+    plot(c(low * ab,ab),c(low * ab,ab),main = main, type = 'n', axes = F, xlab = '', ylab = '', asp = 1)
+    rect(xright = 0, ybottom = 0, xleft = -a, ytop = a, col = 'grey', lty = 'blank')
+    text(-a/2,a/2,'var(Petal.Width)')
+    rect(xleft = 0, ytop = 0, xright = b, ybottom = -b, col = 'grey', lty = 'blank')
+    text(b/2,-b/2,'var(Petal.Length)')
+  }
+  corbase('Correlation is a standardized version of covariance.')
+  rect(xleft = 0, ybottom = 0, xright = b, ytop = a, col = 'black', lty = 'blank')
+  rect(xleft = 0, ybottom = 0, xright = b * r, ytop = a * r, col = 'purple', lty = 'blank')
+  text(r*b/2,a/2,'cov(Petal.Width, Petal.Length)', col = 'purple')
+  text(0, r*a/2, 'R ^ 2 * sd(Petal.Length)',srt = 90, pos = 2, col = 'purple', font = 2)
+  text(r*b/2, 0, 'R ^ 2 * sd(Petal.Width)', adj = c(0.5,1.5), col = 'purple', font = 2)
+
+  .adj <- cov(Petal.Width,Petal.Length)/sd(Petal.Width)
+  corbase('(Beta coefficients for) least-squares regression predict one variable based on another.')
+  rect(xleft = 0, xright = b, ybottom = -b, ytop = -b  * (1 - .adj), col = blue, lty = 'blank')
+  text(0,0,'cov(Petal.Width,\nPetal.Length)', col = 'white', font = 2, pos = 4)
   interjection('')
   interjection('You can pretty much always draw math.')
 }
