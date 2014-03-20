@@ -385,25 +385,26 @@ text(0, r*a/2, 'R * sd(Petal.Length')
 interjection('The unit of b1 must be y-unit/x-unit.')
 
 corbase('Our covariance picture')
+blue <-  rgb(0,0,1,.5)
 rect(xleft = 0, ybottom = 0, xright = b, ytop = a * r, col = 'blue', lwd = 0)
-text(b/2,r*a/2,'cov(Petal.Width, Petal.Length)', col = 'blue')
-text(0, r*a/2, 'R * sd(Petal.Length')
+text(b,r*a/2,'cov(Petal.Width,\nPetal.Length)', col = 'white', font = 2, pos = 2)
+text(0, a*2/3, 'R * sd(Petal.Length)', pos = 2, col = 'black', font = 1, srt = 90)
 
 .adj <- cov(Petal.Width,Petal.Length)/sd(Petal.Length)
 corbase('Lay the covariance over one of the variances instead.')
 rect(xleft = -a, xright = 0, ybottom = a * (1 - .adj), ytop = a, col = 'blue', lwd = 0)
-text(-a/2,b/2,'cov(Petal.Width, Petal.Length)', col = 'blue')
+text(-a/2,a/2,'cov(Petal.Width, Petal.Length)', col = 'white', font = 2)
 
 corbase('Petal.Width = b0 + b1 * Petal.Length')
 rect(xleft = -a, xright = 0, ybottom = a * (1 - .adj), ytop = a, col = 'blue', lwd = 0)
-text(-a/2,b/2,'cov(Petal.Width, Petal.Length)', col = 'blue')
-text(0,b/2,'b1 * sd(Petal.Length)', col = 'blue')
+text(-a/2,a/2,'cov(Petal.Width, Petal.Length)', col = 'white', font = 2)
+text(0,a/2,'b1 * sd(Petal.Length)', col = 'blue', pos = 4)
 
 .adj <- cov(Petal.Width,Petal.Length)/sd(Petal.Width)
 corbase('Lay the covariance over the other variance.')
-rect(xleft = 0, xright = b, ybottom = -b, ytop = -b  * (1 - .adj), col = 'blue', lwd = 0)
-text(a/2,-b/2,'cov(Petal.Width, Petal.Length)', col = 'blue')
-text(a/2,0,'b1 * sd(Petal.Length)', col = 'blue')
+rect(xleft = 0, xright = b, ybottom = -b, ytop = -b  * (1 - .adj), col = blue, lwd = 0)
+text(a/3,0,'cov(Petal.Width,\nPetal.Length)', col = 'black', font = 2)
+text(a/2,0,'b1 * sd(Petal.Length)', col = 'blue', font = 2, srt = -90)
 
 }
 
