@@ -28,16 +28,7 @@ a <- sd(Petal.Length)
 b <- sd(Petal.Width)
 ab <- max(a,b)
 
-corbase <- function(main = '', low = -1) {
-  plot(c(low * ab,ab),c(low * ab,ab),main = main, type = 'n', axes = F, xlab = '', ylab = '', asp = 1)
-  rect(xright = 0, ybottom = 0, xleft = -a, ytop = a, col = 'grey', lty = 'blank')
-  text(-a/2,a/2,'var(Petal.Width)')
-  rect(xleft = 0, ytop = 0, xright = b, ybottom = -b, col = 'grey', lty = 'blank')
-  text(b/2,-b/2,'var(Petal.Length)')
-}
-
 rand <- data.frame(x = rnorm(100), y = rnorm(100))
-r <-  cor(Petal.Length,Petal.Width)
 
 # ----------------
 
@@ -296,6 +287,14 @@ interjection('We can divide\nthe covariance\nby the variances\nto standardize it
 
 irisplot('We\'re using these data again.')
 
+corbase <- function(main = '', low = -1) {
+  plot(c(low * ab,ab),c(low * ab,ab),main = main, type = 'n', axes = F, xlab = '', ylab = '', asp = 1)
+  rect(xright = 0, ybottom = 0, xleft = -a, ytop = a, col = 'grey', lty = 'blank')
+  text(-a/2,a/2,'var(Petal.Width)')
+  rect(xleft = 0, ytop = 0, xright = b, ybottom = -b, col = 'grey', lty = 'blank')
+  text(b/2,-b/2,'var(Petal.Length)')
+}
+
 corbase()
 rect(xleft = 0, ybottom = 0, xright = b, ytop = a, col = 'black', lty = 'blank')
 text(b/2,a/2,'sd(Petal.Width)*\nsd(Petal.Length)', col = 'white')
@@ -339,6 +338,7 @@ corbase('Let\'s zoom in.', low = -.05)
 rect(xleft = 0, ybottom = 0, xright = b, ytop = a, col = 'black', lty = 'blank')
 text(b/2,a/2,'sd(Petal.Width)*\nsd(Petal.Length)', col = 'white')
 
+r <-  cor(Petal.Length,Petal.Width)
 corbase('Squish covariance vertically into the rectangle.', low = -.05)
 rect(xleft = 0, ybottom = 0, xright = b, ytop = a, col = 'black', lty = 'blank')
 rect(xleft = 0, ybottom = 0, xright = b, ytop = a * r, col = 'blue', lty = 'blank')
@@ -381,6 +381,15 @@ rect(xleft = mean(Wind),
      col = rgb(1-valence, 0, valence,.1),
      lty = 'blank')
 
+corbase <- function(main = '', low = -1) {
+  plot(c(low * ab,ab),c(low * ab,ab),main = main, type = 'n', axes = F, xlab = '', ylab = '', asp = 1)
+  rect(xright = 0, ybottom = 0, xleft = -a, ytop = a, col = 'grey', lty = 'blank')
+  text(-a/2,a/2,'var(Wind)')
+  rect(xleft = 0, ytop = 0, xright = b, ybottom = -b, col = 'grey', lty = 'blank')
+  text(b/2,-b/2,'var(Ozone)')
+}
+
+r <-  -cor(Ozone,Wind)
 corbase('R is the same, just negative.', low = -.05)
 rect(xleft = 0, ybottom = 0, xright = b, ytop = a, col = 'black', lty = 'blank')
 rect(xleft = 0, ybottom = 0, xright = b, ytop = a * r, col = 'red', lty = 'blank')
@@ -424,6 +433,7 @@ plot(c(-1,1),c(-1,1),main = 'Variance is a special covariance; its unit is the s
 rect(xleft = -.3, xright = -.3 + (.5/nrow(iris)), ybottom = -1, ytop = 1,
   col = 'blue', lty = 'blank')
 
+r <-  cor(Petal.Width,Petal.Length)
 corbase('Correlation is a ratio of areas with the same units.', low = -.05)
 rect(xleft = 0, ybottom = 0, xright = b, ytop = a, col = 'black', lty = 'blank')
 rect(xleft = 0, ybottom = 0, xright = b, ytop = a * r, col = 'blue', lty = 'blank')
