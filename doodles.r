@@ -366,6 +366,7 @@ text(r*b/2,a/2,'cov(Petal.Width, Petal.Length)', col = 'purple')
 text(0, r*a/2, 'R ^ 2 * sd(Petal.Length)',srt = 90, pos = 2, col = 'purple', font = 2)
 text(r*b/2, 0, 'R ^ 2 * sd(Petal.Width)', adj = c(0.5,1.5), col = 'purple', font = 2)
 
+interjection('That was for very\npositive (blue) covariances.')
 interjection('What if covariance is negative (red)?')
 
 irisplot('We were just using these data.')
