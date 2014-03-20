@@ -24,8 +24,21 @@ interjection <- function(main) {
 
 blue <-  rgb(0,0,1,.5)
 
-slides <- function() {
+a <- sd(Petal.Length)
+b <- sd(Petal.Width)
+ab <- max(a,b)
 
+corbase <- function(main = '', low = -1) {
+  plot(c(low * ab,ab),c(low * ab,ab),main = main, type = 'n', axes = F, xlab = '', ylab = '', asp = 1)
+  rect(xright = 0, ybottom = 0, xleft = -a, ytop = a, col = 'grey', lty = 'blank')
+  text(-a/2,a/2,'var(Petal.Width)')
+  rect(xleft = 0, ytop = 0, xright = b, ybottom = -b, col = 'grey', lty = 'blank')
+  text(b/2,-b/2,'var(Petal.Length)')
+}
+
+# ----------------
+
+statistics <- function() {
 # Introduction
 interjection('What is a statistic?')
 interjection('A number that describes\nlots of other numbers')
@@ -34,7 +47,9 @@ interjection('min, max,\nmode, median, mean,\n range, variance')
 interjection('how many integers,\nwhether the numbers are sorted\n&c.')
 interjection('')
 interjection('Measuring linear relationships')
+}
 
+linear.relationships <- function() {
 # Three datasets
 irisplot('Two iris variables that move together')
 
@@ -42,7 +57,9 @@ rand <- data.frame(x = rnorm(100), y = rnorm(100))
 baseplot('Two air quality variables that move oppositely', Ozone ~ Wind) 
 
 baseplot('Normal random noise', rand$y ~ rand$x)
+}
 
+covariance <- function() {
 # Motivation for covariance
 interjection('We want a number\nthat describes\nwhether two variables\nmove together.')
 
@@ -124,10 +141,9 @@ plot(c(-1,1),c(-1,1),main = 'This blue sliver is the covariance.',
   type = 'n', axes = F, xlab = '', ylab = '')
 rect(xleft = -.3, xright = -.3 + (.5/nrow(iris)), ybottom = -1, ytop = 1,
   col = 'blue', lty = 'blank')
+}
 
-interjection('Let\'s review the previous slides quickly.')
-interjection('')
-
+covariance.notpositive <- function() {
 irisplot('What if we have more red than blue?')
 valence <- (Ozone - mean(Ozone)) *
            (Wind - mean(Wind)) > 0
@@ -191,8 +207,9 @@ plot(c(-1,1),c(-1,1),main = 'Subtract the reds.',
   type = 'n', axes = F, xlab = '', ylab = '')
 points(0,0)
 text(0,-.5, '(Covariance is zero.)')
+}
 
-
+variance <- function() {
 # Computing variance
 interjection('Variance')
 interjection('Variance tells us\nhow spread out\nsome numbers are.')
@@ -237,11 +254,9 @@ plot(c(-1,1),c(-1,1),main = 'This blue sliver is the variance.',
   type = 'n', axes = F, xlab = '', ylab = '')
 rect(xleft = -.3, xright = -.3 + (.5/nrow(iris)), ybottom = -1, ytop = 1,
   col = 'blue', lty = 'blank')
+}
 
-interjection('Let\'s review again.')
-
-interjection('')
-
+correlation <- function() {
 # Correlation
 interjection('A problem with covariance')
 interjection('Covariance has units!\n\n(x-unit times y-unit)')
@@ -256,18 +271,6 @@ par(mfrow = c(1,1))
 
 interjection('Oh noes!')
 interjection('We can divide\nthe covariance\nby the variances\nto standardize it.')
-
-a <- sd(Petal.Length)
-b <- sd(Petal.Width)
-ab <- max(a,b)
-
-corbase <- function(main = '', low = -1) {
-  plot(c(low * ab,ab),c(low * ab,ab),main = main, type = 'n', axes = F, xlab = '', ylab = '', asp = 1)
-  rect(xright = 0, ybottom = 0, xleft = -a, ytop = a, col = 'grey', lty = 'blank')
-  text(-a/2,a/2,'var(Petal.Width)')
-  rect(xleft = 0, ytop = 0, xright = b, ybottom = -b, col = 'grey', lty = 'blank')
-  text(b/2,-b/2,'var(Petal.Length)')
-}
 
 corbase()
 rect(xleft = 0, ybottom = 0, xright = b, ytop = a, col = 'black', lty = 'blank')
@@ -360,10 +363,9 @@ rect(xleft = 0, ybottom = 0, xright = b, ytop = a, col = 'black', lty = 'blank')
 rect(xleft = 0, ybottom = 0, xright = b, ytop = a * r, col = 'red', lty = 'blank')
 text(b/2,r*a/2,'cov(Ozone,\nWind)', col = 'white', font = 2)
 text(0, r*a/2, 'r * sd(Wind)', col = 'red', srt = 90, adj = c(.5,-.5), font = 2)
+}
 
-interjection('(Review correlation briefly.)')
-
-interjection('')
+least.squares.regression <- function() {
 interjection('If we transform the covariance a bit,\nwe can also make predictions.')
 interjection('Let\'s use x to predict y.')
 interjection('y = b0  + b1 * x')
@@ -415,10 +417,29 @@ text(0,0,'cov(Petal.Width,\nPetal.Length)', col = 'white', font = 2, pos = 4)
 corbase('Petal.Length = b0 + b1 * Petal.Width')
 rect(xleft = 0, xright = b, ybottom = -b, ytop = -b  * (1 - .adj), col = blue, lty = 'blank')
 text(a/2,0,'b1 * sd(Petal.Length)', col = 'blue', font = 2, srt = -90)
-
 }
 
+slides <- function() {
+  statistics()
+  linear.relationships()
+  covariance()
+  covariance.notpositive()
+  interjection('Let\'s review the previous slides quickly.')
+  linear.relationships()
+  covariance()
+  covariance.notpositive()
+  interjection('')
+  variance()
+  interjection('')
+  correlation()
+  interjection('Remember how this fits in.')
+  covariance()
+  correlation()
+  interjection('')
+  least.squares.regression()
+  interjection('Let\'s go over that again.')
+  thoughtful.thoughts()
+}
 
 pdf('doodles.pdf', width = 11, height = 8.5)
-slides()
 dev.off()
