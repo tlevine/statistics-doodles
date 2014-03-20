@@ -36,11 +36,15 @@ corbase <- function(main = '', low = -1) {
   text(b/2,-b/2,'var(Petal.Length)')
 }
 
+rand <- data.frame(x = rnorm(100), y = rnorm(100))
+r <-  cor(Petal.Length,Petal.Width)
+
 # ----------------
 
 statistics <- function() {
 # Introduction
 interjection('What is a statistic?')
+interjection('It\'s hard to fit lots of numbers into our brains all at once.')
 interjection('A number that describes\nlots of other numbers')
 interjection('Here are some numbers:\n1 2.2 pi 4 5 7 7\n\nWhat are some statistics?')
 interjection('min, max,\nmode, median, mean,\n range, variance')
@@ -53,7 +57,6 @@ linear.relationships <- function() {
 # Three datasets
 irisplot('Two iris variables that move together')
 
-rand <- data.frame(x = rnorm(100), y = rnorm(100))
 baseplot('Two air quality variables that move oppositely', Ozone ~ Wind) 
 
 baseplot('Normal random noise', rand$y ~ rand$x)
@@ -315,7 +318,6 @@ corbase('Let\'s zoom in.', low = -.05)
 rect(xleft = 0, ybottom = 0, xright = b, ytop = a, col = 'black', lty = 'blank')
 text(b/2,a/2,'sd(Petal.Width)*\nsd(Petal.Length)', col = 'white')
 
-r <-  cor(Petal.Length,Petal.Width)
 corbase('Squish covariance vertically into the rectangle.', low = -.05)
 rect(xleft = 0, ybottom = 0, xright = b, ytop = a, col = 'black', lty = 'blank')
 rect(xleft = 0, ybottom = 0, xright = b, ytop = a * r, col = 'blue', lty = 'blank')
@@ -431,6 +433,7 @@ thoughtful.thoughts <- function() {
 }
 
 slides <- function() {
+  interjection('Statistics with doodles\nThomas Levine\nthomaslevine.com')
   statistics()
   linear.relationships()
   covariance()
@@ -460,4 +463,5 @@ slides <- function() {
 }
 
 pdf('doodles.pdf', width = 11, height = 8.5)
+slides()
 dev.off()
