@@ -25,6 +25,10 @@ The table has three columns, called "doodle", "stat 100",
 and "stat 200". It has four rows, one for each of the
 statistics that we are discussing.
 
+Also, point out this cool thing.
+
+    \sigma_{xx} = {\sigma_x}^2
+
 In this table, the doodle is an iconic doodle that reminds
 us of the full doodle that we talked through. The stat 100
 is the formula for the bivariate version of the statistic
