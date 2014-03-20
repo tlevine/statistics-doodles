@@ -52,7 +52,7 @@ text(rep(seq(-1,1,.1),each=21),rep(seq(-1,1,.1),21),round(100*runif(400)))
 plot(c(-1,1),c(-1,1),xlab='',ylab='',type='n',axes=F,main='It\'s hard to fit lots of numbers into our brains all at once.')
 text(rep(seq(-1,1,.1),each=21),rep(seq(-1,1,.1),21),round(100*runif(400)))
 
-interjection('So we invent numbers\nthat describe\nlots of other numbers')
+interjection('So we invent numbers\nthat describe\nlots of other numbers\n\n')
 interjection('So we invent numbers\nthat describe\nlots of other numbers\n\n(statistics)')
 
 interjection('Here are some numbers:\n1 2.2 pi 4 5 7 7\n\nWhat are some statistics?')
