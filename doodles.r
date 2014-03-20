@@ -449,6 +449,13 @@ slides <- function() {
   interjection('')
   least.squares.regression()
   interjection('Let\'s go over that again.')
+  linear.relationships()
+  covariance()
+  covariance.notpositive()
+  variance()
+  correlation()
+  least.squares.regression()
+  interjection('')
   thoughtful.thoughts()
 }
 
