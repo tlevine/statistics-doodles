@@ -2,9 +2,10 @@ attach(iris)
 attach(na.omit(airquality))
 attach(cars)
 
-baseplot <- function(main, formula) {
-  plot(formula, type = 'p', bty = 'n',
+baseplot <- function(main, ...) {
+  plot(..., type = 'p', bty = 'n',
     main = main, pch = 21, bg = 'grey', col = NULL,
+    asp = 1,
     col.axis = 'grey', col.lab = 'grey', col.main = 'grey', fg = 'grey')
 }
 irisplot <- function(main) {
@@ -19,7 +20,7 @@ meanplot <- function(main) {
 
 interjection <- function(main) {
   plot.new()
-  text(0.5, 0.5, cex = 2, label = main, font = 2)
+  text(0.5, 0.5, cex = 3, label = main, font = 2)
 }
 
 slides <- function() {
@@ -167,7 +168,7 @@ rect(xleft = -.3, xright = -.3 + (.5/nrow(iris)), ybottom = -1, ytop = 1,
   col = 'red', lty = 'blank')
 text(.3, 0, 'But it\'s negative!')
 
-irisplot('What if we have as much red as blue?')
+baseplot('What if we have as much red as blue?', rand$y ~ rand$x)
 valence <- (rand$y - mean(rand$y)) *
            (rand$x - mean(rand$x)) > 0
 rect(xleft = mean(rand$x),
@@ -194,15 +195,15 @@ text(0,-.5, '(Covariance is zero.)')
 # Computing variance
 interjection('Variance')
 interjection('Variance tells us\nhow spread out\nsome numbers are.')
-interjection('(Add examples here.)')
+interjection('1, 4, 8, 10\nvs\n4, 4, 5, 6')
 interjection('The variance of a variable is\nthe covariance of the variable\nwith itself.')
 
 irisplot('Our two iris variables from before')
 interjection('Let\'s look at just one of them.')
-baseplot('The points all fall along the same line.', Petal.Length ~ Petal.Length)
+baseplot('The points all fall along the same line.', Petal.Length, Petal.Length)
 interjection('Let\'s find the variance of Petal.Length')
 
-baseplot('Draw all the rectangles', Petal.Length ~ Petal.Length)
+baseplot('Draw all the rectangles', Petal.Length, Petal.Length)
 rect(xleft = mean(Petal.Length),
      ybottom = mean(Petal.Length),
      xright = Petal.Length,
@@ -210,7 +211,7 @@ rect(xleft = mean(Petal.Length),
      col = rgb(0, 0, 1,.1),
      lty = 'blank')
 
-baseplot('Why no red rectangles?', Petal.Length ~ Petal.Length)
+baseplot('Why no red rectangles?', Petal.Length, Petal.Length)
 rect(xleft = mean(Petal.Length),
      ybottom = mean(Petal.Length),
      xright = Petal.Length,
@@ -253,14 +254,14 @@ baseplot(paste0('Cars (cov =', .cov, ' mph*ft)'), speed ~ dist)
 par(mfrow = c(1,1))
 
 interjection('Oh noes!')
-interjection('Let\'s divide\ncovariance by the variances\nto standardize it.')
+interjection('We can divide\nthe covariance\nby the variances\nto standardize it.')
 
 a <- sd(Petal.Length)
 b <- sd(Petal.Width)
 ab <- max(a,b)
 
 corbase <- function(main = '', low = -1) {
-  plot(c(low * ab,ab),c(low * ab,ab),main = main, type = 'n', axes = F, xlab = '', ylab = '')
+  plot(c(low * ab,ab),c(low * ab,ab),main = main, type = 'n', axes = F, xlab = '', ylab = '', asp = 1)
   rect(xright = 0, ybottom = 0, xleft = -a, ytop = a, col = 'grey', lty = 'blank')
   text(-a/2,a/2,'var(Petal.Width)')
   rect(xleft = 0, ytop = 0, xright = b, ybottom = -b, col = 'grey', lty = 'blank')
@@ -274,11 +275,16 @@ text(b/2,a/2,'sd(Petal.Width)*\nsd(Petal.Length)', col = 'white')
 corbase()
 rect(xleft = 0, ybottom = 0, xright = b, ytop = a, col = 'black', lty = 'blank')
 text(b/2,a/2,'sd(Petal.Width)*\nsd(Petal.Length)', col = 'white')
+text(-a/2,-b/2,'The black rectangle is\nlike an average variance.')
+
+corbase()
+rect(xleft = 0, ybottom = 0, xright = b, ytop = a, col = 'black', lty = 'blank')
+text(b/2,a/2,'sd(Petal.Width)*\nsd(Petal.Length)', col = 'white')
 text(-a/2,-b/2,'cov(Petal.Width,Petal.Length)\ncannot be bigger than\nblack rectangle.')
 
 interjection('Why?')
 
-baseplot('Covariance has red rectangles.', Petal.Length ~ Petal.Length)
+baseplot('Covariance has red rectangles.', Petal.Length, Petal.Length)
 rect(xleft = mean(Petal.Length),
      ybottom = mean(Petal.Length),
      xright = Petal.Length,
@@ -286,7 +292,7 @@ rect(xleft = mean(Petal.Length),
      col = rgb(0, 0, 1,.1),
      lty = 'blank')
 
-baseplot('Variance doesn\'t have red rectangles.', Petal.Length ~ Petal.Length)
+baseplot('Variance doesn\'t have red rectangles.', Petal.Length, Petal.Length)
 rect(xleft = mean(Petal.Length),
      ybottom = mean(Petal.Length),
      xright = Petal.Length,
