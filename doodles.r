@@ -5,7 +5,6 @@ attach(cars)
 baseplot <- function(main, ...) {
   plot(..., type = 'p', bty = 'n',
     main = main, pch = 21, bg = 'grey', col = NULL,
-    asp = 1,
     col.axis = 'grey', col.lab = 'grey', col.main = 'grey', fg = 'grey')
 }
 irisplot <- function(main) {
@@ -22,6 +21,8 @@ interjection <- function(main) {
   plot.new()
   text(0.5, 0.5, cex = 3, label = main, font = 2)
 }
+
+blue <-  rgb(0,0,1,.5)
 
 slides <- function() {
 
@@ -200,10 +201,10 @@ interjection('The variance of a variable is\nthe covariance of the variable\nwit
 
 irisplot('Our two iris variables from before')
 interjection('Let\'s look at just one of them.')
-baseplot('The points all fall along the same line.', Petal.Length, Petal.Length)
+baseplot('The points all fall along the same line.', Petal.Length, Petal.Length, asp = 1)
 interjection('Let\'s find the variance of Petal.Length')
 
-baseplot('Draw all the rectangles', Petal.Length, Petal.Length)
+baseplot('Draw all the rectangles', Petal.Length, Petal.Length, asp = 1)
 rect(xleft = mean(Petal.Length),
      ybottom = mean(Petal.Length),
      xright = Petal.Length,
@@ -211,7 +212,7 @@ rect(xleft = mean(Petal.Length),
      col = rgb(0, 0, 1,.1),
      lty = 'blank')
 
-baseplot('Why no red rectangles?', Petal.Length, Petal.Length)
+baseplot('Why no red rectangles?', Petal.Length, Petal.Length, asp = 1)
 rect(xleft = mean(Petal.Length),
      ybottom = mean(Petal.Length),
      xright = Petal.Length,
@@ -284,15 +285,17 @@ text(-a/2,-b/2,'cov(Petal.Width,Petal.Length)\ncannot be bigger than\nblack rect
 
 interjection('Why?')
 
-baseplot('Covariance has red rectangles.', Petal.Length, Petal.Length)
-rect(xleft = mean(Petal.Length),
+irisplot('Covariance has red rectangles.')
+valence <- (Petal.Length - mean(Petal.Length)) *
+           (Petal.Width - mean(Petal.Width)) > 0
+rect(xleft = mean(Petal.Width),
      ybottom = mean(Petal.Length),
-     xright = Petal.Length,
+     xright = Petal.Width,
      ytop = Petal.Length,
-     col = rgb(0, 0, 1,.1),
+     col = rgb(1-valence, 0, valence,.1),
      lty = 'blank')
 
-baseplot('Variance doesn\'t have red rectangles.', Petal.Length, Petal.Length)
+baseplot('Variance doesn\'t have red rectangles.', Petal.Length, Petal.Length, asp = 1)
 rect(xleft = mean(Petal.Length),
      ybottom = mean(Petal.Length),
      xright = Petal.Length,
@@ -305,46 +308,47 @@ rect(xleft = 0, ybottom = 0, xright = b, ytop = a, col = 'black', lty = 'blank')
 text(b/2,a/2,'sd(Petal.Width)*\nsd(Petal.Length)', col = 'white')
 text(-a/2,-b/2,'cov(Petal.Width,Petal.Length)\ncannot be bigger than\nblack rectangle.')
 
-corbase('Let\'s zoom in.', low = -.1)
+corbase('Let\'s zoom in.', low = -.05)
 rect(xleft = 0, ybottom = 0, xright = b, ytop = a, col = 'black', lty = 'blank')
+text(b/2,a/2,'sd(Petal.Width)*\nsd(Petal.Length)', col = 'white')
 
 r <-  cor(Petal.Length,Petal.Width)
-corbase('Squish covariance vertically into the rectangle.', low = -.1)
+corbase('Squish covariance vertically into the rectangle.', low = -.05)
 rect(xleft = 0, ybottom = 0, xright = b, ytop = a, col = 'black', lty = 'blank')
 rect(xleft = 0, ybottom = 0, xright = b, ytop = a * r, col = 'blue', lty = 'blank')
 
 interjection('Correlation (R)\nis the ratio of\nthe small rectangle\nto the big rectangle.')
 
-corbase('Squish covariance vertically into the rectangle.', low = -.1)
+corbase('Squish covariance vertically into the rectangle.', low = -.05)
 rect(xleft = 0, ybottom = 0, xright = b, ytop = a, col = 'black', lty = 'blank')
 rect(xleft = 0, ybottom = 0, xright = b, ytop = a * r, col = 'blue', lty = 'blank')
-text(b/2,r*a/2,'cov(Petal.Width, Petal.Length)', col = 'blue')
-text(0, r*a/2, 'R * sd(Petal.Length')
+text(b/2,r*a/2,'cov(Petal.Width,\nPetal.Length)', col = 'white', font = 2)
+text(0, r*a/2, 'R * sd(Petal.Length)', col = 'blue', font = 2, srt = 90, adj = c(0.5,-1))
 
-corbase('Squish covariance horizontally into the rectangle.', low = -.1)
-rect(xleft = 0, ybottom = 0, xright = b, ytop = a, col = 'black', lty = 'blank')
+corbase('Squish covariance horizontally into the rectangle.', low = -.05)
+rect(xleft = 0, ybottom = 0, xright = b, ytop = a, col = 'black', font = 2, lty = 'blank')
 rect(xleft = 0, ybottom = 0, xright = b * r, ytop = a, col = 'blue', lty = 'blank')
-text(r*b/2,a/2,'cov(Petal.Width, Petal.Length)', col = 'blue')
-text(r*b/2, 0, 'R * sd(Petal.Width', pos = 2)
+text(r*b/2,a/2,'cov(Petal.Width,\nPetal.Length)', col = 'white', font = 2)
+text(b/2, 0, 'R * sd(Petal.Width', adj = c(0.5,1.5), col = 'blue', font = 2)
 
 interjection('People like to\ntalk about R-squared.')
 
-corbase('Intersect the two squished covariance rectangles.', low = -.1)
+corbase('Intersect the two squished covariance rectangles.', low = -.05)
 rect(xleft = 0, ybottom = 0, xright = b, ytop = a, col = 'black', lty = 'blank')
 rect(xleft = 0, ybottom = 0, xright = b * r, ytop = a * r, col = 'purple', lty = 'blank')
 text(r*b/2,a/2,'cov(Petal.Width, Petal.Length)', col = 'purple')
-text(0, r*a/2, 'R ^ 2 * sd(Petal.Length')
-text(r*b/2, 0, 'R ^ 2 * sd(Petal.Width', pos = 2)
+text(0, r*a/2, 'R ^ 2 * sd(Petal.Length)',srt = 90, pos = 2, col = 'purple', font = 2)
+text(r*b/2, 0, 'R ^ 2 * sd(Petal.Width)', adj = c(0.5,1.5), col = 'purple', font = 2)
 
 interjection('What if covariance is negative (red)?')
 
-corbase('R is the same, just negative.', low = -.1)
+corbase('R is the same, just negative.', low = -.05)
 rect(xleft = 0, ybottom = 0, xright = b, ytop = a, col = 'black', lty = 'blank')
 rect(xleft = 0, ybottom = 0, xright = b, ytop = a * r, col = 'red', lty = 'blank')
 text(b/2,r*a/2,'cov(Ozone, Wind)', col = 'red')
 text(0, r*a/2, 'r * sd(Wind')
 
-corbase('R-squared is the same, and it is always positive.', low = -.1)
+corbase('R-squared is the same, and it is always positive.', low = -.05)
 rect(xleft = 0, ybottom = 0, xright = b, ytop = a, col = 'black', lty = 'blank')
 rect(xleft = 0, ybottom = 0, xright = b * r, ytop = a * r, col = 'purple', lty = 'blank')
 text(r*b/2,a/2,'cov(Ozone, Wind)', col = 'purple')
@@ -382,7 +386,7 @@ plot(c(-1,1),c(-1,1),main = 'Variance is a special covariance; its unit is the s
 rect(xleft = -.3, xright = -.3 + (.5/nrow(iris)), ybottom = -1, ytop = 1,
   col = 'blue', lty = 'blank')
 
-corbase('Correlation is a ratio of areas with the same units.', low = -.1)
+corbase('Correlation is a ratio of areas with the same units.', low = -.05)
 rect(xleft = 0, ybottom = 0, xright = b, ytop = a, col = 'black', lty = 'blank')
 rect(xleft = 0, ybottom = 0, xright = b, ytop = a * r, col = 'blue', lty = 'blank')
 text(b/2,r*a/2,'cov(Petal.Width, Petal.Length)', col = 'blue')
@@ -391,7 +395,6 @@ text(0, r*a/2, 'R * sd(Petal.Length')
 interjection('The unit of b1 must be y-unit/x-unit.')
 
 corbase('Our covariance picture')
-blue <-  rgb(0,0,1,.5)
 rect(xleft = 0, ybottom = 0, xright = b, ytop = a * r, col = 'blue', lty = 'blank')
 text(b,r*a/2,'cov(Petal.Width,\nPetal.Length)', col = 'white', font = 2, pos = 2)
 text(0, a*2/3, 'R * sd(Petal.Length)', pos = 2, col = 'black', font = 1, srt = 90)
