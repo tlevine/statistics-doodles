@@ -358,8 +358,8 @@ text(r*b/2, 0, 'r ^ 2 * sd(Ozone)', col = 'purple', font = 2, adj = c(.5,1.5))
 corbase('Zoom back out.')
 rect(xleft = 0, ybottom = 0, xright = b, ytop = a, col = 'black', lty = 'blank')
 rect(xleft = 0, ybottom = 0, xright = b, ytop = a * r, col = 'red', lty = 'blank')
-text(b/2,r*a/2,'cov(Ozone, Wind)', col = 'red')
-text(0, r*a/2, 'r * sd(Wind')
+text(b/2,r*a/2,'cov(Ozone,\nWind)', col = 'white', font = 2)
+text(0, r*a/2, 'r * sd(Wind)', col = 'red', srt = 90, adj = c(.5,-.5), font = 2)
 
 interjection('(Review correlation briefly.)')
 
@@ -389,8 +389,6 @@ rect(xleft = -.3, xright = -.3 + (.5/nrow(iris)), ybottom = -1, ytop = 1,
 corbase('Correlation is a ratio of areas with the same units.', low = -.05)
 rect(xleft = 0, ybottom = 0, xright = b, ytop = a, col = 'black', lty = 'blank')
 rect(xleft = 0, ybottom = 0, xright = b, ytop = a * r, col = 'blue', lty = 'blank')
-text(b/2,r*a/2,'cov(Petal.Width, Petal.Length)', col = 'blue')
-text(0, r*a/2, 'R * sd(Petal.Length')
 
 interjection('The unit of b1 must be y-unit/x-unit.')
 
@@ -412,7 +410,10 @@ text(0,a/2,'b1 * sd(Petal.Length)', col = 'blue', pos = 4)
 .adj <- cov(Petal.Width,Petal.Length)/sd(Petal.Width)
 corbase('Lay the covariance over the other variance.')
 rect(xleft = 0, xright = b, ybottom = -b, ytop = -b  * (1 - .adj), col = blue, lty = 'blank')
-text(a/3,0,'cov(Petal.Width,\nPetal.Length)', col = 'black', font = 2)
+text(0,0,'cov(Petal.Width,\nPetal.Length)', col = 'white', font = 2, pos = 4)
+
+corbase('Petal.Length = b0 + b1 * Petal.Width')
+rect(xleft = 0, xright = b, ybottom = -b, ytop = -b  * (1 - .adj), col = blue, lty = 'blank')
 text(a/2,0,'b1 * sd(Petal.Length)', col = 'blue', font = 2, srt = -90)
 
 }
