@@ -419,6 +419,17 @@ rect(xleft = 0, xright = b, ybottom = -b, ytop = -b  * (1 - .adj), col = blue, l
 text(a/2,0,'b1 * sd(Petal.Length)', col = 'blue', font = 2, srt = -90)
 }
 
+
+thoughtful.thoughts <- function() {
+  interjection('A statistic is a number\nthat describes a lot\nof other numbers.')
+  interjection('Covariance describes\nthe strength of\nlinear relationships.')
+  interjection('Variance describes\nhow spread-out\nsome numbers are.')
+  interjection('Correlation is a\nstandardized version\nof covariance.')
+  interjection('(Beta coefficients for)\nleast-squares regression\npredict one variable\nbased on another.')
+  interjection('')
+  interjection('You can pretty much always draw math.')
+}
+
 slides <- function() {
   statistics()
   linear.relationships()
