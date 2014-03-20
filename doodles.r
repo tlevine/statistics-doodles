@@ -2,13 +2,13 @@ attach(iris)
 attach(na.omit(airquality))
 attach(cars)
 
-baseplot <- function(main, y, x) {
-  plot(y ~ x, type = 'p', bty = 'n',
+baseplot <- function(main, formula) {
+  plot(formula, type = 'p', bty = 'n',
     main = main, pch = 21, bg = 'grey', col = NULL,
     col.axis = 'grey', col.lab = 'grey', col.main = 'grey', fg = 'grey')
 }
 irisplot <- function(main) {
-  baseplot(main, Petal.Length, Petal.Width)
+  baseplot(main, Petal.Length ~ Petal.Width)
 }
 
 meanplot <- function(main) {
@@ -37,9 +37,9 @@ interjection('Measuring linear relationships')
 irisplot('Two iris variables that move together')
 
 rand <- data.frame(x = rnorm(100), y = rnorm(100))
-baseplot('Two air quality variables that move oppositely', Ozone, Wind) 
+baseplot('Two air quality variables that move oppositely', Ozone ~ Wind) 
 
-baseplot('Normal random noise', rand$y, rand$x)
+baseplot('Normal random noise', rand$y ~ rand$x)
 
 # Motivation for covariance
 interjection('We want a number\nthat describes\nwhether two variables\nmove together.')
@@ -47,9 +47,9 @@ interjection('We want a number\nthat describes\nwhether two variables\nmove toge
 irisplot('It should be high for these variables')
 
 rand <- data.frame(x = rnorm(100), y = rnorm(100))
-baseplot('It should be low for these variables', Ozone, Wind) 
+baseplot('It should be low for these variables', Ozone ~ Wind) 
 
-baseplot('It should be near zero for these variables', rand$y, rand$x)
+baseplot('It should be near zero for these variables', rand$y ~ rand$x)
 
 # Computing covariance
 interjection('Covariance')
@@ -72,7 +72,7 @@ rect(xleft = mean(Petal.Width),
      xright = Petal.Width,
      ytop = Petal.Length,
      col = rgb(1-valence, 0, valence,.1),
-     lwd = 0)
+     lty = 'blank')
 
 irisplot('Why did I color them blue and red?')
 valence <- (Petal.Length - mean(Petal.Length)) *
@@ -82,7 +82,7 @@ rect(xleft = mean(Petal.Width),
      xright = Petal.Width,
      ytop = Petal.Length,
      col = rgb(1-valence, 0, valence,.1),
-     lwd = 0)
+     lty = 'blank')
 
 irisplot('Why did I color them blue and red?')
 valence <- (Petal.Length - mean(Petal.Length)) *
@@ -92,7 +92,7 @@ rect(xleft = mean(Petal.Width),
      xright = Petal.Width,
      ytop = Petal.Length,
      col = rgb(1-valence, 0, valence,.1),
-     lwd = 0)
+     lty = 'blank')
 text(x = max(Petal.Width), y = max(Petal.Length), pos = 2, label = 'Evidence of\nmovement together')
 text(x = min(Petal.Width), y = min(Petal.Length), pos = 4, label = 'Evidence of\nmovement together')
 text(x = max(Petal.Width), y = min(Petal.Length), pos = 2, label = 'Evidence of\nmovement oppositely')
@@ -100,28 +100,28 @@ text(x = min(Petal.Width), y = max(Petal.Length), pos = 4, label = 'Evidence of\
 
 plot(c(-1,1),c(-1,1),main = 'Add the blues together. (This is at a different scale.)',
   type = 'n', axes = F, xlab = '', ylab = '')
-rect(xleft = -1, ybottom = -1, xright = 1, ytop = 1, lwd = 0, col = 'blue')
+rect(xleft = -1, ybottom = -1, xright = 1, ytop = 1, lty = 'blank', col = 'blue')
 
 plot(c(-1,1),c(-1,1),main = 'Add the reds together.',
   type = 'n', axes = F, xlab = '', ylab = '')
-rect(xleft = -1, ybottom = -1, xright = 1, ytop = 1, lwd = 0, col = 'blue')
-rect(xleft = .8, ybottom = -1, xright = 1, ytop = -.8, lwd = 0, col = 'red')
+rect(xleft = -1, ybottom = -1, xright = 1, ytop = 1, lty = 'blank', col = 'blue')
+rect(xleft = .8, ybottom = -1, xright = 1, ytop = -.8, lty = 'blank', col = 'red')
 
 plot(c(-1,1),c(-1,1),main = 'Subtract the reds.',
   type = 'n', axes = F, xlab = '', ylab = '')
-rect(xleft = -1, ybottom = -1, xright = 1, ytop = 1, lwd = 0, col = 'blue')
-rect(xleft = .8, ybottom = -1, xright = 1, ytop = -.8, lwd = 0, col = 'white')
+rect(xleft = -1, ybottom = -1, xright = 1, ytop = 1, lty = 'blank', col = 'blue')
+rect(xleft = .8, ybottom = -1, xright = 1, ytop = -.8, lty = 'blank', col = 'white')
 
 plot(c(-1,1),c(-1,1),main = 'Divide into as many equal pieces as we have irises (n).',
   type = 'n', axes = F, xlab = '', ylab = '')
-rect(xleft = -1, ybottom = -1, xright = 1, ytop = 1, lwd = 0, col = 'blue')
-rect(xleft = .8, ybottom = -1, xright = 1, ytop = -.8, lwd = 0, col = 'white')
+rect(xleft = -1, ybottom = -1, xright = 1, ytop = 1, lty = 'blank', col = 'blue')
+rect(xleft = .8, ybottom = -1, xright = 1, ytop = -.8, lty = 'blank', col = 'white')
 abline(v = 2 * (-.5 + ((1:nrow(iris))/nrow(iris))))
 
 plot(c(-1,1),c(-1,1),main = 'This blue sliver is the covariance.',
   type = 'n', axes = F, xlab = '', ylab = '')
 rect(xleft = -.3, xright = -.3 + (.5/nrow(iris)), ybottom = -1, ytop = 1,
-  col = 'blue', lwd = 0)
+  col = 'blue', lty = 'blank')
 
 interjection('Let\'s review the previous slides quickly.')
 interjection('')
@@ -134,37 +134,37 @@ rect(xleft = mean(Wind),
      xright = Wind,
      ytop = Ozone,
      col = rgb(1-valence, 0, valence,.1),
-     lwd = 0)
+     lty = 'blank')
 
 plot(c(-1,1),c(-1,1),main = 'Add the blues together. (This is at a different scale.)',
   type = 'n', axes = F, xlab = '', ylab = '')
-rect(xleft = -1, ybottom = .8, xright = -.8, ytop = 1, lwd = 0, col = 'blue')
+rect(xleft = -1, ybottom = .8, xright = -.8, ytop = 1, lty = 'blank', col = 'blue')
 
 plot(c(-1,1),c(-1,1),main = 'Add the reds together.',
   type = 'n', axes = F, xlab = '', ylab = '')
-rect(xleft = -1, ybottom = -1, xright = 1, ytop = 1, lwd = 0, col = 'red')
-rect(xleft = -1, ybottom = .8, xright = -.8, ytop = 1, lwd = 0, col = 'blue')
+rect(xleft = -1, ybottom = -1, xright = 1, ytop = 1, lty = 'blank', col = 'red')
+rect(xleft = -1, ybottom = .8, xright = -.8, ytop = 1, lty = 'blank', col = 'blue')
 
 plot(c(-1,1),c(-1,1),main = 'Subtract the reds.',
   type = 'n', axes = F, xlab = '', ylab = '')
-rect(xleft = -1, ybottom = -1, xright = 1, ytop = 1, lwd = 0, col = 'red')
-rect(xleft = -1, ybottom = .8, xright = -.8, ytop = 1, lwd = 0, col = 'white')
+rect(xleft = -1, ybottom = -1, xright = 1, ytop = 1, lty = 'blank', col = 'red')
+rect(xleft = -1, ybottom = .8, xright = -.8, ytop = 1, lty = 'blank', col = 'white')
 
 plot(c(-1,1),c(-1,1),main = 'Divide into as many equal pieces as we have irises (n).',
   type = 'n', axes = F, xlab = '', ylab = '')
-rect(xleft = -1, ybottom = -1, xright = 1, ytop = 1, lwd = 0, col = 'red')
-rect(xleft = -1, ybottom = .8, xright = -.8, ytop = 1, lwd = 0, col = 'white')
+rect(xleft = -1, ybottom = -1, xright = 1, ytop = 1, lty = 'blank', col = 'red')
+rect(xleft = -1, ybottom = .8, xright = -.8, ytop = 1, lty = 'blank', col = 'white')
 abline(v = 2 * (-.5 + ((1:nrow(iris))/nrow(iris))))
 
 plot(c(-1,1),c(-1,1),main = 'This red sliver is the covariance.',
   type = 'n', axes = F, xlab = '', ylab = '')
 rect(xleft = -.3, xright = -.3 + (.5/nrow(iris)), ybottom = -1, ytop = 1,
-  col = 'red', lwd = 0)
+  col = 'red', lty = 'blank')
 
 plot(c(-1,1),c(-1,1),main = 'This red sliver is the covariance.',
   type = 'n', axes = F, xlab = '', ylab = '')
 rect(xleft = -.3, xright = -.3 + (.5/nrow(iris)), ybottom = -1, ytop = 1,
-  col = 'red', lwd = 0)
+  col = 'red', lty = 'blank')
 text(.3, 0, 'But it\'s negative!')
 
 irisplot('What if we have as much red as blue?')
@@ -175,15 +175,15 @@ rect(xleft = mean(rand$x),
      xright = rand$x,
      ytop = rand$y,
      col = rgb(1-valence, 0, valence,.1),
-     lwd = 0)
+     lty = 'blank')
 
 plot(c(-1,1),c(-1,1),main = 'Add the blues together. (This is at a different scale.)',
   type = 'n', axes = F, xlab = '', ylab = '')
-rect(xleft = -.45, ybottom = -.45, xright = .55, ytop = .55, lwd = 0, col = 'blue')
+rect(xleft = -.45, ybottom = -.45, xright = .55, ytop = .55, lty = 'blank', col = 'blue')
 
 plot(c(-1,1),c(-1,1),main = 'Add the reds together.',
   type = 'n', axes = F, xlab = '', ylab = '')
-rect(xleft = -.55, ybottom = -.55, xright = .45, ytop = .45, lwd = 0, col = 'red')
+rect(xleft = -.55, ybottom = -.55, xright = .45, ytop = .45, lty = 'blank', col = 'red')
 
 plot(c(-1,1),c(-1,1),main = 'Subtract the reds.',
   type = 'n', axes = F, xlab = '', ylab = '')
@@ -199,42 +199,42 @@ interjection('The variance of a variable is\nthe covariance of the variable\nwit
 
 irisplot('Our two iris variables from before')
 interjection('Let\'s look at just one of them.')
-baseplot('The points all fall along the same line.', Petal.Length, Petal.Length)
+baseplot('The points all fall along the same line.', Petal.Length ~ Petal.Length)
 interjection('Let\'s find the variance of Petal.Length')
 
-baseplot('Draw all the rectangles', Petal.Length, Petal.Length)
+baseplot('Draw all the rectangles', Petal.Length ~ Petal.Length)
 rect(xleft = mean(Petal.Length),
      ybottom = mean(Petal.Length),
      xright = Petal.Length,
      ytop = Petal.Length,
      col = rgb(0, 0, 1,.1),
-     lwd = 0)
+     lty = 'blank')
 
-baseplot('Why no red rectangles?', Petal.Length, Petal.Length)
+baseplot('Why no red rectangles?', Petal.Length ~ Petal.Length)
 rect(xleft = mean(Petal.Length),
      ybottom = mean(Petal.Length),
      xright = Petal.Length,
      ytop = Petal.Length,
      col = rgb(0, 0, 1,.1),
-     lwd = 0)
+     lty = 'blank')
 
 plot(c(-1,1),c(-1,1),main = 'Add the blues together. (This is at a different scale.)',
   type = 'n', axes = F, xlab = '', ylab = '')
-rect(xleft = -1, ybottom = -1, xright = 1, ytop = 1, lwd = 0, col = 'blue')
+rect(xleft = -1, ybottom = -1, xright = 1, ytop = 1, lty = 'blank', col = 'blue')
 
 plot(c(-1,1),c(-1,1),main = 'We have no reds to subtract.',
   type = 'n', axes = F, xlab = '', ylab = '')
-rect(xleft = -1, ybottom = -1, xright = 1, ytop = 1, lwd = 0, col = 'blue')
+rect(xleft = -1, ybottom = -1, xright = 1, ytop = 1, lty = 'blank', col = 'blue')
 
 plot(c(-1,1),c(-1,1),main = 'Divide into as many equal pieces as we have irises (n).',
   type = 'n', axes = F, xlab = '', ylab = '')
-rect(xleft = -1, ybottom = -1, xright = 1, ytop = 1, lwd = 0, col = 'blue')
+rect(xleft = -1, ybottom = -1, xright = 1, ytop = 1, lty = 'blank', col = 'blue')
 abline(v = 2 * (-.5 + ((1:nrow(iris))/nrow(iris))))
 
 plot(c(-1,1),c(-1,1),main = 'This blue sliver is the variance.',
   type = 'n', axes = F, xlab = '', ylab = '')
 rect(xleft = -.3, xright = -.3 + (.5/nrow(iris)), ybottom = -1, ytop = 1,
-  col = 'blue', lwd = 0)
+  col = 'blue', lty = 'blank')
 
 interjection('Let\'s review again.')
 
@@ -249,7 +249,7 @@ par(mfrow = 1:2)
 .cov <- round(cov(Petal.Length,Petal.Width), 2)
 irisplot(paste0('Irises (cov = ', .cov, ' cm^2)'))
 .cov <- round(cov(speed,dist), 2)
-baseplot(paste0('Cars (cov =', .cov, ' mph*ft)'), speed, dist)
+baseplot(paste0('Cars (cov =', .cov, ' mph*ft)'), speed ~ dist)
 par(mfrow = c(1,1))
 
 interjection('Oh noes!')
@@ -261,71 +261,71 @@ ab <- max(a,b)
 
 corbase <- function(main = '', low = -1) {
   plot(c(low * ab,ab),c(low * ab,ab),main = main, type = 'n', axes = F, xlab = '', ylab = '')
-  rect(xright = 0, ybottom = 0, xleft = -a, ytop = a, col = 'grey', lwd = 0)
+  rect(xright = 0, ybottom = 0, xleft = -a, ytop = a, col = 'grey', lty = 'blank')
   text(-a/2,a/2,'var(Petal.Width)')
-  rect(xleft = 0, ytop = 0, xright = b, ybottom = -b, col = 'grey', lwd = 0)
+  rect(xleft = 0, ytop = 0, xright = b, ybottom = -b, col = 'grey', lty = 'blank')
   text(b/2,-b/2,'var(Petal.Length)')
 }
 
 corbase()
-rect(xleft = 0, ybottom = 0, xright = b, ytop = a, col = 'black', lwd = 0)
+rect(xleft = 0, ybottom = 0, xright = b, ytop = a, col = 'black', lty = 'blank')
 text(b/2,a/2,'sd(Petal.Width)*\nsd(Petal.Length)', col = 'white')
 
 corbase()
-rect(xleft = 0, ybottom = 0, xright = b, ytop = a, col = 'black', lwd = 0)
+rect(xleft = 0, ybottom = 0, xright = b, ytop = a, col = 'black', lty = 'blank')
 text(b/2,a/2,'sd(Petal.Width)*\nsd(Petal.Length)', col = 'white')
 text(-a/2,-b/2,'cov(Petal.Width,Petal.Length)\ncannot be bigger than\nblack rectangle.')
 
 interjection('Why?')
 
-baseplot('Covariance has red rectangles.', Petal.Length, Petal.Length)
+baseplot('Covariance has red rectangles.', Petal.Length ~ Petal.Length)
 rect(xleft = mean(Petal.Length),
      ybottom = mean(Petal.Length),
      xright = Petal.Length,
      ytop = Petal.Length,
      col = rgb(0, 0, 1,.1),
-     lwd = 0)
+     lty = 'blank')
 
-baseplot('Variance doesn\'t have red rectangles.', Petal.Length, Petal.Length)
+baseplot('Variance doesn\'t have red rectangles.', Petal.Length ~ Petal.Length)
 rect(xleft = mean(Petal.Length),
      ybottom = mean(Petal.Length),
      xright = Petal.Length,
      ytop = Petal.Length,
      col = rgb(0, 0, 1,.1),
-     lwd = 0)
+     lty = 'blank')
 
 corbase()
-rect(xleft = 0, ybottom = 0, xright = b, ytop = a, col = 'black', lwd = 0)
+rect(xleft = 0, ybottom = 0, xright = b, ytop = a, col = 'black', lty = 'blank')
 text(b/2,a/2,'sd(Petal.Width)*\nsd(Petal.Length)', col = 'white')
 text(-a/2,-b/2,'cov(Petal.Width,Petal.Length)\ncannot be bigger than\nblack rectangle.')
 
 corbase('Let\'s zoom in.', low = -.1)
-rect(xleft = 0, ybottom = 0, xright = b, ytop = a, col = 'black', lwd = 0)
+rect(xleft = 0, ybottom = 0, xright = b, ytop = a, col = 'black', lty = 'blank')
 
 r <-  cor(Petal.Length,Petal.Width)
 corbase('Squish covariance vertically into the rectangle.', low = -.1)
-rect(xleft = 0, ybottom = 0, xright = b, ytop = a, col = 'black', lwd = 0)
-rect(xleft = 0, ybottom = 0, xright = b, ytop = a * r, col = 'blue', lwd = 0)
+rect(xleft = 0, ybottom = 0, xright = b, ytop = a, col = 'black', lty = 'blank')
+rect(xleft = 0, ybottom = 0, xright = b, ytop = a * r, col = 'blue', lty = 'blank')
 
 interjection('Correlation (R)\nis the ratio of\nthe small rectangle\nto the big rectangle.')
 
 corbase('Squish covariance vertically into the rectangle.', low = -.1)
-rect(xleft = 0, ybottom = 0, xright = b, ytop = a, col = 'black', lwd = 0)
-rect(xleft = 0, ybottom = 0, xright = b, ytop = a * r, col = 'blue', lwd = 0)
+rect(xleft = 0, ybottom = 0, xright = b, ytop = a, col = 'black', lty = 'blank')
+rect(xleft = 0, ybottom = 0, xright = b, ytop = a * r, col = 'blue', lty = 'blank')
 text(b/2,r*a/2,'cov(Petal.Width, Petal.Length)', col = 'blue')
 text(0, r*a/2, 'R * sd(Petal.Length')
 
 corbase('Squish covariance horizontally into the rectangle.', low = -.1)
-rect(xleft = 0, ybottom = 0, xright = b, ytop = a, col = 'black', lwd = 0)
-rect(xleft = 0, ybottom = 0, xright = b * r, ytop = a, col = 'blue', lwd = 0)
+rect(xleft = 0, ybottom = 0, xright = b, ytop = a, col = 'black', lty = 'blank')
+rect(xleft = 0, ybottom = 0, xright = b * r, ytop = a, col = 'blue', lty = 'blank')
 text(r*b/2,a/2,'cov(Petal.Width, Petal.Length)', col = 'blue')
 text(r*b/2, 0, 'R * sd(Petal.Width', pos = 2)
 
 interjection('People like to\ntalk about R-squared.')
 
 corbase('Intersect the two squished covariance rectangles.', low = -.1)
-rect(xleft = 0, ybottom = 0, xright = b, ytop = a, col = 'black', lwd = 0)
-rect(xleft = 0, ybottom = 0, xright = b * r, ytop = a * r, col = 'purple', lwd = 0)
+rect(xleft = 0, ybottom = 0, xright = b, ytop = a, col = 'black', lty = 'blank')
+rect(xleft = 0, ybottom = 0, xright = b * r, ytop = a * r, col = 'purple', lty = 'blank')
 text(r*b/2,a/2,'cov(Petal.Width, Petal.Length)', col = 'purple')
 text(0, r*a/2, 'R ^ 2 * sd(Petal.Length')
 text(r*b/2, 0, 'R ^ 2 * sd(Petal.Width', pos = 2)
@@ -333,21 +333,21 @@ text(r*b/2, 0, 'R ^ 2 * sd(Petal.Width', pos = 2)
 interjection('What if covariance is negative (red)?')
 
 corbase('R is the same, just negative.', low = -.1)
-rect(xleft = 0, ybottom = 0, xright = b, ytop = a, col = 'black', lwd = 0)
-rect(xleft = 0, ybottom = 0, xright = b, ytop = a * r, col = 'red', lwd = 0)
+rect(xleft = 0, ybottom = 0, xright = b, ytop = a, col = 'black', lty = 'blank')
+rect(xleft = 0, ybottom = 0, xright = b, ytop = a * r, col = 'red', lty = 'blank')
 text(b/2,r*a/2,'cov(Ozone, Wind)', col = 'red')
 text(0, r*a/2, 'r * sd(Wind')
 
 corbase('R-squared is the same, and it is always positive.', low = -.1)
-rect(xleft = 0, ybottom = 0, xright = b, ytop = a, col = 'black', lwd = 0)
-rect(xleft = 0, ybottom = 0, xright = b * r, ytop = a * r, col = 'purple', lwd = 0)
+rect(xleft = 0, ybottom = 0, xright = b, ytop = a, col = 'black', lty = 'blank')
+rect(xleft = 0, ybottom = 0, xright = b * r, ytop = a * r, col = 'purple', lty = 'blank')
 text(r*b/2,a/2,'cov(Ozone, Wind)', col = 'purple')
 text(0, r*a/2, 'r ^ 2 * sd(Wind')
 text(r*b/2, 0, 'r ^ 2 * sd(Ozone', pos = 2)
 
 corbase('Zoom back out.')
-rect(xleft = 0, ybottom = 0, xright = b, ytop = a, col = 'black', lwd = 0)
-rect(xleft = 0, ybottom = 0, xright = b, ytop = a * r, col = 'red', lwd = 0)
+rect(xleft = 0, ybottom = 0, xright = b, ytop = a, col = 'black', lty = 'blank')
+rect(xleft = 0, ybottom = 0, xright = b, ytop = a * r, col = 'red', lty = 'blank')
 text(b/2,r*a/2,'cov(Ozone, Wind)', col = 'red')
 text(0, r*a/2, 'r * sd(Wind')
 
@@ -369,16 +369,16 @@ interjection('Let\'s think about units again.')
 plot(c(-1,1),c(-1,1),main = 'Covariance is an area; its unit is the product of the x and y units.',
   type = 'n', axes = F, xlab = '', ylab = '')
 rect(xleft = -.3, xright = -.3 + (.5/nrow(iris)), ybottom = -1, ytop = 1,
-  col = 'blue', lwd = 0)
+  col = 'blue', lty = 'blank')
 
 plot(c(-1,1),c(-1,1),main = 'Variance is a special covariance; its unit is the square of the x unit.',
   type = 'n', axes = F, xlab = '', ylab = '')
 rect(xleft = -.3, xright = -.3 + (.5/nrow(iris)), ybottom = -1, ytop = 1,
-  col = 'blue', lwd = 0)
+  col = 'blue', lty = 'blank')
 
 corbase('Correlation is a ratio of areas with the same units.', low = -.1)
-rect(xleft = 0, ybottom = 0, xright = b, ytop = a, col = 'black', lwd = 0)
-rect(xleft = 0, ybottom = 0, xright = b, ytop = a * r, col = 'blue', lwd = 0)
+rect(xleft = 0, ybottom = 0, xright = b, ytop = a, col = 'black', lty = 'blank')
+rect(xleft = 0, ybottom = 0, xright = b, ytop = a * r, col = 'blue', lty = 'blank')
 text(b/2,r*a/2,'cov(Petal.Width, Petal.Length)', col = 'blue')
 text(0, r*a/2, 'R * sd(Petal.Length')
 
@@ -386,23 +386,23 @@ interjection('The unit of b1 must be y-unit/x-unit.')
 
 corbase('Our covariance picture')
 blue <-  rgb(0,0,1,.5)
-rect(xleft = 0, ybottom = 0, xright = b, ytop = a * r, col = 'blue', lwd = 0)
+rect(xleft = 0, ybottom = 0, xright = b, ytop = a * r, col = 'blue', lty = 'blank')
 text(b,r*a/2,'cov(Petal.Width,\nPetal.Length)', col = 'white', font = 2, pos = 2)
 text(0, a*2/3, 'R * sd(Petal.Length)', pos = 2, col = 'black', font = 1, srt = 90)
 
 .adj <- cov(Petal.Width,Petal.Length)/sd(Petal.Length)
 corbase('Lay the covariance over one of the variances instead.')
-rect(xleft = -a, xright = 0, ybottom = a * (1 - .adj), ytop = a, col = 'blue', lwd = 0)
+rect(xleft = -a, xright = 0, ybottom = a * (1 - .adj), ytop = a, col = 'blue', lty = 'blank')
 text(-a/2,a/2,'cov(Petal.Width, Petal.Length)', col = 'white', font = 2)
 
 corbase('Petal.Width = b0 + b1 * Petal.Length')
-rect(xleft = -a, xright = 0, ybottom = a * (1 - .adj), ytop = a, col = 'blue', lwd = 0)
+rect(xleft = -a, xright = 0, ybottom = a * (1 - .adj), ytop = a, col = 'blue', lty = 'blank')
 text(-a/2,a/2,'cov(Petal.Width, Petal.Length)', col = 'white', font = 2)
 text(0,a/2,'b1 * sd(Petal.Length)', col = 'blue', pos = 4)
 
 .adj <- cov(Petal.Width,Petal.Length)/sd(Petal.Width)
 corbase('Lay the covariance over the other variance.')
-rect(xleft = 0, xright = b, ybottom = -b, ytop = -b  * (1 - .adj), col = blue, lwd = 0)
+rect(xleft = 0, xright = b, ybottom = -b, ytop = -b  * (1 - .adj), col = blue, lty = 'blank')
 text(a/3,0,'cov(Petal.Width,\nPetal.Length)', col = 'black', font = 2)
 text(a/2,0,'b1 * sd(Petal.Length)', col = 'blue', font = 2, srt = -90)
 
