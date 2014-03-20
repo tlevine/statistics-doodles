@@ -444,15 +444,15 @@ plot(c(-1,1),c(-1,1),main = 'Variance is a special covariance; its unit is the s
 rect(xleft = -.3, xright = -.3 + (.5/nrow(iris)), ybottom = -1, ytop = 1,
   col = 'blue', lty = 'blank')
 
-a <- sd(Ozone)
-b <- sd(Wind)
+a <- sd(Petal.Length)
+b <- sd(Petal.Width)
 ab <- max(a,b)
 corbase <- function(main = '', low = -1) {
   plot(c(low * ab,ab),c(low * ab,ab),main = main, type = 'n', axes = F, xlab = '', ylab = '', asp = 1)
   rect(xright = 0, ybottom = 0, xleft = -a, ytop = a, col = 'grey', lty = 'blank')
-  text(-a/2,a/2,'var(Wind)')
+  text(-a/2,a/2,'var(Petal.Width)')
   rect(xleft = 0, ytop = 0, xright = b, ybottom = -b, col = 'grey', lty = 'blank')
-  text(b/2,-b/2,'var(Ozone)')
+  text(b/2,-b/2,'var(Petal.Length)')
 }
 
 r <-  cor(Petal.Width,Petal.Length)
@@ -489,6 +489,8 @@ text(a/2,0,'b1 * sd(Petal.Length)', col = 'blue', font = 2, srt = -90)
 
 
 thoughtful.thoughts <- function() {
+  interjection('Some things to remember')
+  interjection('')
   interjection('A statistic is a number\nthat describes a lot\nof other numbers.')
   interjection('Covariance describes\nthe strength of\nlinear relationships.')
   interjection('Variance describes\nhow spread-out\nsome numbers are.')
