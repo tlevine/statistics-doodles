@@ -43,7 +43,7 @@ r <-  cor(Petal.Length,Petal.Width)
 
 statistics <- function() {
 # Introduction
-interjection('What is a statistic?')
+interjection('Why we have statistics')
 
 plot(c(-1,1),c(-1,1),xlab='',ylab='',type='n',axes=F,main='Lots of numbers')
 text(rep(seq(-1,1,.1),each=21),rep(seq(-1,1,.1),21),round(100*runif(400)))
@@ -52,7 +52,9 @@ text(rep(seq(-1,1,.1),each=21),rep(seq(-1,1,.1),21),round(100*runif(400)))
 plot(c(-1,1),c(-1,1),xlab='',ylab='',type='n',axes=F,main='It\'s hard to fit lots of numbers into our brains all at once.')
 text(rep(seq(-1,1,.1),each=21),rep(seq(-1,1,.1),21),round(100*runif(400)))
 
-interjection('A number that describes\nlots of other numbers')
+interjection('So we invent numbers\nthat describe\nlots of other numbers')
+interjection('So we invent numbers\nthat describe\nlots of other numbers\n\n(statistics)')
+
 interjection('Here are some numbers:\n1 2.2 pi 4 5 7 7\n\nWhat are some statistics?')
 interjection('min, max,\nmode, median, mean,\n range, variance')
 interjection('how many integers,\nwhether the numbers are sorted\n&c.')
