@@ -416,6 +416,11 @@ rect(xleft = 0, ybottom = 0, xright = b, ytop = a, col = 'black', lty = 'blank')
 rect(xleft = 0, ybottom = 0, xright = b, ytop = a * r, col = 'red', lty = 'blank')
 }
 
+comparing.correlations <- function() {
+  interjection('And now we can compare correlations.')
+  
+}
+
 least.squares.regression <- function() {
 interjection('If we transform the covariance a bit,\nwe can also make predictions.')
 interjection('Let\'s use x to predict y.')
