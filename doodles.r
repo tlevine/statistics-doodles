@@ -156,7 +156,17 @@ rect(xleft = -.3, xright = -.3 + (.5/nrow(iris)), ybottom = -1, ytop = 1,
 }
 
 covariance.notpositive <- function() {
-irisplot('What if we have more red than blue?')
+irisplot('That was for this sort of relationship.')
+valence <- (Petal.Length - mean(Petal.Length)) *
+           (Petal.Width - mean(Petal.Width)) > 0
+rect(xleft = mean(Petal.Width),
+     ybottom = mean(Petal.Length),
+     xright = Petal.Width,
+     ytop = Petal.Length,
+     col = rgb(1-valence, 0, valence,.1),
+     lty = 'blank')
+
+baseplot('What if we have more red than blue?', Ozone ~ Wind)
 valence <- (Ozone - mean(Ozone)) *
            (Wind - mean(Wind)) > 0
 rect(xleft = mean(Wind),
@@ -195,7 +205,7 @@ plot(c(-1,1),c(-1,1),main = 'This red sliver is the covariance.',
   type = 'n', axes = F, xlab = '', ylab = '')
 rect(xleft = -.3, xright = -.3 + (.5/nrow(iris)), ybottom = -1, ytop = 1,
   col = 'red', lty = 'blank')
-text(.3, 0, 'But it\'s negative!')
+text(.3, 0, 'But it\'s\nnegative!', cex = 3, font = 2)
 
 baseplot('What if we have as much red as blue?', rand$y ~ rand$x)
 valence <- (rand$y - mean(rand$y)) *
@@ -284,6 +294,8 @@ par(mfrow = c(1,1))
 interjection('Oh noes!')
 interjection('We can divide\nthe covariance\nby the variances\nto standardize it.')
 
+irisplot('We\'re using these data again.')
+
 corbase()
 rect(xleft = 0, ybottom = 0, xright = b, ytop = a, col = 'black', lty = 'blank')
 text(b/2,a/2,'sd(Petal.Width)*\nsd(Petal.Length)', col = 'white')
@@ -355,6 +367,18 @@ text(0, r*a/2, 'R ^ 2 * sd(Petal.Length)',srt = 90, pos = 2, col = 'purple', fon
 text(r*b/2, 0, 'R ^ 2 * sd(Petal.Width)', adj = c(0.5,1.5), col = 'purple', font = 2)
 
 interjection('What if covariance is negative (red)?')
+
+irisplot('We were just using these data.')
+baseplot('What if we had these data?', Ozone ~ Wind) 
+baseplot('What if we had these data?', Ozone ~ Wind) 
+valence <- (Ozone - mean(Ozone)) *
+           (Wind - mean(Wind)) > 0
+rect(xleft = mean(Wind),
+     ybottom = mean(Ozone),
+     xright = Wind,
+     ytop = Ozone,
+     col = rgb(1-valence, 0, valence,.1),
+     lty = 'blank')
 
 corbase('R is the same, just negative.', low = -.05)
 rect(xleft = 0, ybottom = 0, xright = b, ytop = a, col = 'black', lty = 'blank')
