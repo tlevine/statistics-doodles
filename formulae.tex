@@ -18,8 +18,12 @@ $$ \sigma_{xy} = \operatorname{E}{\big[\left(x - \operatorname{E}[x])(y - \opera
 More precisely, it could be this.
 $$ \sigma_{xy} = \frac{1}{N}\sum_{i=1}^{N}\left( x_{i}-\bar{x} \right) \left( y_{i}-\bar{y} \right) $$
 
+That's the sum ($\sum_{i=1}^{N}$) of rectangles
+($\left( x_{i}-\bar{x} \right) \left( y_{i}-\bar{y} \right)$)
+divided by the number of observations/rectangles ($\frac{1}{N}$).
+
 As matrix arithmetic, it's written in a way that works for more than two variables.
-I'm not going to explain it, but here it is. ($\Sigma$ is the covariance matrix.)
+($\Sigma$ is the covariance matrix.)
 $$ \Sigma=\mathrm{E}
 \left[
  \left(
@@ -30,6 +34,9 @@ $$ \Sigma=\mathrm{E}
     \right)^{\rm T}
     \right]
 $$
+
+It's multiplication of many $\textbf{X}$ by many $\textbf{X}$, and that's lots of
+rectangles for lots of covariances.
 
 In R, it's this.
 
@@ -52,7 +59,10 @@ $$ \sigma_{x}^2 = \frac{1}{N}\sum_{i=1}^{N}\left( x_{i}-\bar{x} \right) \left( x
 And that reduces to this.
 $$ \sigma_{xy} = \frac{1}{N}\sum_{i=1}^{N}\left( x_{i}-\bar{x} \right)^2 $$
 
-As matrix arithmetic, it's the diagonal of the covariance. Again, I'm not really going to explain it.
+This time, the top is a sum of squares ($\left( x_{i}-\bar{x} \right)^2$).
+
+As matrix arithmetic, it's the diagonal of the covariance because those are the cells
+where we're multiplying the the same \textbf{x}.
 $$ diag\left(\Sigma\right) $$
 
 In R, all of these would work.
@@ -91,8 +101,6 @@ $$
 If you need to be convinced that $\sigma_{xy}$ is no greater than $\sigma_x\sigma_y$,
 recall that the covariance includes negative rectangles and the variance does not;
 
-
-
 \section{Ordinary least-squares regression}
 Simple regression is a best fit line between two variables; we are looking for $\alpha$ and $\beta$.
 $$ \hat{y}_i = \alpha + \beta x_i$$
@@ -109,6 +117,16 @@ $$ \beta = \frac
 {\sum_{i=1}^{N}\left( x_{i}-\bar{x} \right) \left( y_{i}-\bar{y} \right)}
 {\sum_{i=1}^{N}\left( x_{i}-\bar{x} \right)^2}
 $$
+
+In matrix form, we might right this.
+$$B = \left(X^TXright)^{-1}X^Ty$$
+
+The part on the right ($X^Ty$) is multiplication of x-values by y-values,
+so it's the sum of rectangles like in covariance.
+
+We invert the part on the left ($\left(X^TXright)^\textbf{-1}$),
+so it's sort of like a denominator. We're multiplying x-values by
+x-values, so it's a sum of squares, like in variance.
 
 \section{Credits}
 Some formul\ae\ were lifted from these pages.
