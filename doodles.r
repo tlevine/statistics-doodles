@@ -50,12 +50,15 @@ interjection('Measuring linear relationships')
 }
 
 linear.relationships <- function() {
-# Three datasets
+baseplot('Normal random noise', rand$y ~ rand$x)
+
 irisplot('Two iris variables that move together')
 
 baseplot('Two air quality variables that move oppositely', Ozone ~ Wind) 
 
-baseplot('Normal random noise', rand$y ~ rand$x)
+Weight <- ChickWeight$weight
+Time <- ChickWeight$Time
+baseplot('Not a linear relationship', Weight ~ Time) 
 }
 
 covariance <- function() {
@@ -177,7 +180,7 @@ plot(c(-1,1),c(-1,1),main = 'Subtract the reds.',
 rect(xleft = -1, ybottom = -1, xright = 1, ytop = 1, lty = 'blank', col = 'red')
 rect(xleft = -1, ybottom = .8, xright = -.8, ytop = 1, lty = 'blank', col = 'white')
 
-plot(c(-1,1),c(-1,1),main = 'Divide into as many equal pieces as we have irises (n).',
+plot(c(-1,1),c(-1,1),main = 'Divide into as many equal pieces as we have readings (n).',
   type = 'n', axes = F, xlab = '', ylab = '')
 rect(xleft = -1, ybottom = -1, xright = 1, ytop = 1, lty = 'blank', col = 'red')
 rect(xleft = -1, ybottom = .8, xright = -.8, ytop = 1, lty = 'blank', col = 'white')
@@ -254,7 +257,7 @@ plot(c(-1,1),c(-1,1),main = 'We have no reds to subtract.',
   type = 'n', axes = F, xlab = '', ylab = '')
 rect(xleft = -1, ybottom = -1, xright = 1, ytop = 1, lty = 'blank', col = 'blue')
 
-plot(c(-1,1),c(-1,1),main = 'Divide into as many equal pieces as we have irises (n).',
+plot(c(-1,1),c(-1,1),main = 'Divide into as many equal pieces as we have dots (n).',
   type = 'n', axes = F, xlab = '', ylab = '')
 rect(xleft = -1, ybottom = -1, xright = 1, ytop = 1, lty = 'blank', col = 'blue')
 abline(v = 2 * (-.5 + ((1:nrow(iris))/nrow(iris))))
