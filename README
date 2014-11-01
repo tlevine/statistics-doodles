@@ -2,11 +2,6 @@ Statistics with doodles
 =======================
 Here are materials for a talk on statistics with doodles.
 
-Abstract
---------
-
-XXX
-
 Audience
 --------
 This is mostly intended for people who have taken a conventional
@@ -14,7 +9,6 @@ statistics course, but others will probably learn something too.
 
 How to
 ------
-
 Talk through the introduction slides, then
 talk through the doodles slides, falling back
 to a whiteboard (or whatever) as needed.
@@ -25,15 +19,17 @@ The table has three columns, called "doodle", "stat 100",
 and "stat 200". It has four rows, one for each of the
 statistics that we are discussing.
 
-Also, point out this cool thing.
-
-    \sigma_{xx} = {\sigma_x}^2
-
 In this table, the doodle is an iconic doodle that reminds
 us of the full doodle that we talked through. The stat 100
 is the formula for the bivariate version of the statistic
 in summation notation. The stat 200 is the formula for the
 more-than-two-variate version in matrix notation.
+
+Alternatively, just talk through the "formulas.pdf".
+
+Either way, be sure to point out this cool thing.
+
+    \sigma_{xx} = {\sigma_x}^2
 
 Grand points to make and conclude with
 ---------------------------------------
@@ -49,3 +45,7 @@ Grand points to make and conclude with
 5. (Beta coefficients for) least-squares regression describe
     one variable based on other variables.
 6. You can pretty much always draw math.
+
+Screencast
+------------
+I'm making screencasts with gtk-recordmydesktop.
